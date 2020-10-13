@@ -1,28 +1,41 @@
 import React from 'react'
-import { Grid , Paper } from '@material-ui/core'
+import { Container, Grid , Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-
+import background from '../../images/5.png'
+import styles from './LoginPage.module.css'
+import Form from '../formLogin/form'
 
 const useStyles = makeStyles({
-    container : {
-        marginTop:"25vh",
-        backgroundColor:"lightblue"
-    }
+  root:{
+    backgroundColor:'white',
+    padding:'1rem',
+    display:'flex',
+    justifyContent:'center',
+    justifyItems:'space-between'
+
+  }
 });
 
 function LoginPage() {
     const classes = useStyles();
     return (
         <div>
-            <Grid container className={classes.container} >
-                <Grid item xs={3} sm={2}></Grid>
-               <Grid item xs={6} sm={8}>
-                    <Paper elevation={3} >mahdi</Paper>
-                    
-               </Grid>
-                <Grid item xs={3} sm={2}></Grid>
-            </Grid>
+
+       <div className={styles.container}>
+         
+        <div className={styles.container__leftPanel}>
+          <h1>POS PROJECT</h1>          
+          <img src={require('../../images/6.svg')} style={{width:"45vw" , marginLeft:"2rem"}} />
+         
         </div>
+        <div className={styles.container__rightPanel}>
+          <Paper elevation={3} classes={{root:classes.root}} className={styles.container__rightPanel__paper}>
+              <Form />
+          </Paper>
+        </div>
+       </div>
+        </div>
+
     )
 }
 
