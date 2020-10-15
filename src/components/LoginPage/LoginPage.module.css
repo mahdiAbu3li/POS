@@ -1,107 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap");
+
 .container {
-  background-color: #fff;
-  /* position: relative; */
+  background-color: rgb(255, 255, 255);
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: center;
-
-  /* z-index: 5;            */
-}
-
-.container:before {
-  content: "";
   position: absolute;
-  width: 2000px;
-  height: 2000px;
-  border-radius: 50%;
-  background: linear-gradient(-10deg, rgb(251, 255, 0), rgb(255, 0, 0));
-  top: -10%;
-  right: 48%;
-  overflow: hidden;
-  transform: translateY(-50%);
+}
+.container__background {
+  width: 100%;
+  height: 100%;
   z-index: 1;
+  position: absolute;
+  background: linear-gradient(-10deg, rgb(251, 255, 0), #f58621);
+  clip-path: polygon( 50% 0%, 100% 0, 70% 40%, 69% 73%,26% 82%,0 100%,0% 70%,0% 35%,0 0);
 }
 .container__leftPanel {
-  z-index: 6;
-  /* width: 50%; */
+  z-index: 11;
   color: #fff;
+  font-family: "Sansita Swashed", cursive;
 }
-.container__rightPanel{
-    /* width: 100%; */
-    height: 100vh;
-    display: flex;
-    /* flex-direction: column; */
-    /* margin-top: 10rem; */
-    justify-content: center;
-    justify-items: center;
-    /* padding: 30px; */
+.container__leftPanel h1 {
+  font-size: 4.5vw;
+}
+.container__rightPanel {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
 }
 
-.container__rightPanel__paper{
+.container__rightPanel__paper {
   width: 15rem;
   height: 20rem;
   z-index: 55;
   margin: 1rem;
   margin-top: 8rem;
-  
 }
-
-
-
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  
-  .container__leftPanel > *{
+  .container__leftPanel > * {
     display: none;
+  }
+  .container__background {
+    clip-path: circle(58.4% at 48% 4%);
   }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  .container__leftPanel > *{
+  .container__leftPanel > * {
     display: none;
+  }
+  .container__background {
+    /* clip-path: circle(58.4% at 48% 4%); */
+    clip-path: polygon(50% 0%,73% 0,39% 40%,% 73%,26% 107%,0 100%,0% 70%, 35%,0 0);
   }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  .container__leftPanel > *{
+  .container__leftPanel > * {
     display: none;
   }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  .container__leftPanel > *{
+  .container__background {
+    clip-path: circle(71% at 6% 5%);
+  }
+  .container__leftPanel > * {
     display: block;
   }
-  .container__leftPanel{
+  .container__leftPanel {
     width: 50%;
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
-    
   }
   .container__leftPanel h1 {
-    margin: 0 10rem;
+    margin: 5rem 10rem 0;
   }
-  .container__rightPanel{
+  .container__rightPanel {
     width: 50%;
   }
-  .container__rightPanel__paper{
+  .container__rightPanel__paper {
     width: 20rem;
     height: 45vh;
     margin-top: 32vh;
-   
   }
-
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-
+  .container__background {
+    clip-path: circle(60% at 6% 5%);
+  }
 }
