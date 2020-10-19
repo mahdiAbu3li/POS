@@ -1,7 +1,7 @@
 import React from "react";
 import LoginPage from "../LoginPage/LoginPage";
 import Dashboard from "../Dashboard/Dashboard";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {  Switch, Route } from "react-router-dom";
 function Routes() {
   return (
     <div>

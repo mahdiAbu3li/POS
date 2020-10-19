@@ -6,13 +6,11 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
+  
   Link
 } from "react-router-dom";
 
-import Dashboard from "../Dashboard/Dashboard";
+
 const useStyles = makeStyles({
   formContainer: {
     display: "flex",
