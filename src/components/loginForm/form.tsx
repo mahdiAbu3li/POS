@@ -5,6 +5,14 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+import Dashboard from "../Dashboard/Dashboard";
 const useStyles = makeStyles({
   formContainer: {
     display: "flex",
@@ -19,6 +27,7 @@ const useStyles = makeStyles({
 function Form() {
   const styles = useStyles();
   return (
+    <>
     <div className={styles.formContainer}>
       <h3>Login to Your Account</h3>
       <TextField
@@ -46,9 +55,15 @@ function Form() {
             ),
           }}
       ></TextField>
+
+      <Link to="/dashboard">
       <Button variant="outlined" className={styles.root}>Login</Button>
+      </Link>
+      
+     
       <span style={{ marginLeft: "4rem" }}>&#169; 2020 </span>
     </div>
+    </>   
   );
 }
 
