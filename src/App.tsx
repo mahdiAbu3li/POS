@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./App.css";
-import LoginPage from "./components/LoginPage/LoginPage";
+
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./components/Routers/Routes";
