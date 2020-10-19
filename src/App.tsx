@@ -1,10 +1,9 @@
 import React from "react";
-import logo from "./logo.svg";
+
 import "./App.css";
 import LoginPage from "./components/LoginPage/LoginPage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Dashboard from "./components/Dashboard/Dashboard";
+import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./components/Routers/Routes";
 const theme = createMuiTheme({});
 
