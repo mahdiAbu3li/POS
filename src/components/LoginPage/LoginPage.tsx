@@ -1,8 +1,6 @@
 import React from "react";
-import { Container, Grid, Paper } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import background from "../../images/5.png";
-// import styles from "./LoginPage.module.css";
 import Form from "../loginForm/form";
 
 const useStyles = makeStyles((theme) => ({
@@ -125,6 +123,7 @@ function LoginPage() {
           <img
             src={require("../../images/7.png")}
             style={{ width: "55vw", marginTop: "4rem" }}
+            alt=""
           />
         </div>
         <div className={styles.container__rightPanel}>

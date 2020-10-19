@@ -1,18 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import LoginPage from './components/LoginPage/LoginPage';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import React from "react";
 
-const theme = createMuiTheme({
-
-})
+import "./App.css";
+import LoginPage from "./components/LoginPage/LoginPage";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { BrowserRouter as Router } from "react-router-dom";
+import Routes from "./components/Routers/Routes";
+const theme = createMuiTheme({});
 
 function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-      <LoginPage />
+        <Router>
+          <Routes />
+        </Router>
       </ThemeProvider>
     </div>
   );
