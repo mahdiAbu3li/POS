@@ -1,3 +1,4 @@
+import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
 import LoginPage from "./LoginPage";
 
@@ -5,10 +6,13 @@ import LoginPage from "./LoginPage";
 export default {
   title: "LoginPage",
   component: LoginPage,
+  decorators: [
+    (Story:any) => (
+      <Router>
+        <Story />
+      </Router>
+    ),
+  ],
 };
 
-const Template = (args: any) => (
-  <LoginPage {...args} />
-);
-
-export const FirstStory = Template.bind({});
+export const FirstStory = () => <LoginPage />;
