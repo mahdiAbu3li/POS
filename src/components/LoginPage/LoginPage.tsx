@@ -9,8 +9,8 @@ function LoginPage() {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.container__background}></div>
-        <div className={styles.container__leftPanel}>
+        <div className={styles.containerBackground}></div>
+        <div className={styles.containerLeftPanel}>
           <h1>Mahdi &nbsp; Shop</h1>
           <img
             src={require("../../images/7.png")}
@@ -18,11 +18,11 @@ function LoginPage() {
             alt=""
           />
         </div>
-        <div className={styles.container__rightPanel}>
+        <div className={styles.containerRightPanel}>
           <Paper
             elevation={3}
             classes={{ root: styles.root }}
-            className={styles.container__rightPanel__paper}
+            className={styles.containerRightPanelPaper}
           >
             <Form />
           </Paper>

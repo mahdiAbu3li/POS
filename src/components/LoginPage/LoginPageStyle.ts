@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/styles";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    
     padding: "1rem",
     display: "flex",
     justifyContent: "center",
@@ -18,7 +17,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     position: "absolute",
   },
-  container__background: {
+  containerBackground: {
     width: "100%",
     height: "100%",
     zIndex: 1,
@@ -27,7 +26,7 @@ export const useStyles = makeStyles((theme) => ({
     clipPath:
       "polygon( 50% 0%, 100% 0, 70% 40%, 69% 73%,26% 82%,0 100%,0% 70%,0% 35%,0 0)",
   },
-  container__leftPanel: {
+  containerLeftPanel: {
     zIndex: 11,
     color: "#fff",
     fontFamily: 'Sansita Swashed", cursive',
@@ -36,13 +35,13 @@ export const useStyles = makeStyles((theme) => ({
       fontFamily: "'Sansita Swashed', cursive",
     },
   },
-  container__rightPanel: {
+  containerRightPanel: {
     height: "100vh",
     display: "flex",
     justifyContent: "center",
     justifyItems: "center",
   },
-  container__rightPanel__paper: {
+  containerRightPanelPaper: {
     width: "15rem",
     height: "20rem",
     zIndex: 55,
@@ -50,38 +49,38 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: "8rem",
   },
   "@media only screen and (max-width: 600px)": {
-    container__leftPanel: {
+    containerLeftPanel: {
       "& > *": {
         display: "none",
       },
     },
-    container__background: {
+    containerBackground: {
       clipPath: "circle(58.4% at 48% 4%)",
     },
   },
   "@media only screen and (min-width: 600px)": {
-    container__leftPanel: {
+    containerLeftPanel: {
       "& > *": {
         display: "none",
       },
-      container__background: {
+      containerBackground: {
         clipPath:
           "polygon(50% 0%,73% 0,39% 40%,% 73%,26% 107%,0 100%,0% 70%, 35%,0 0)",
       },
     },
   },
   "@media only screen and (min-width: 768px)": {
-    container__leftPanel: {
+    containerLeftPanel: {
       "& > *": {
         display: "none",
       },
     },
   },
   "@media only screen and (min-width: 992px)": {
-    container__background: {
+    containerBackground: {
       clipPath: "circle(71% at 6% 5%)",
     },
-    container__leftPanel: {
+    containerLeftPanel: {
       "& > *": {
         display: "block",
       },
@@ -93,17 +92,17 @@ export const useStyles = makeStyles((theme) => ({
       justifyContent: "space-evenly",
       flexDirection: "column",
     },
-    container__rightPanel: {
+    containerRightPanel: {
       width: "50%",
     },
-    container__rightPanel__paper: {
+    containerRightPanel__paper: {
       width: "20rem",
       height: "45vh",
       marginTop: "32vh",
     },
   },
   "@media only screen and (min-width: 1200px)": {
-    container__background: {
+    containerBackground: {
       clipPath: "circle(60% at 6% 5%)",
     },
   },
