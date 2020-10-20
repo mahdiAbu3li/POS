@@ -7,8 +7,5 @@ export default {
   component: Form,
 };
 
-// const Template = (args: any) => (
-//   <Form {...args} />
-// );
 
 export const FirstStory = () => <Form />;
