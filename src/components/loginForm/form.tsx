@@ -7,32 +7,36 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import LockIcon from "@material-ui/icons/Lock";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+// import {  ThemeProvider } from "@material-ui/core/styles";
 
-const theme = createMuiTheme({
-  overrides: {
-    // Style sheet name ⚛️
-    MuiButton: {
-      // Name of the rule
-      outlined: {
-        // Some CSS
-        background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-        borderRadius: 3,
-        border: 0,
-        color: "white",
-        height: 48,
-        padding: "0 30px",
-        boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-        textDecoration: "none",
-      },
-    },
+// const theme = createMuiTheme({
+//   overrides: {
+//     // Style sheet name ⚛️
+//     MuiButton: {
+//       // Name of the rule
+//       outlined: {
+//         // Some CSS
+//         background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+//         borderRadius: 3,
+//         border: 0,
+//         color: "white",
+//         height: 48,
+//         padding: "0 30px",
+//         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+//         textDecoration: "none",
+//       },
+//     },
+//   },
+// });
+const useStyles = makeStyles((theme) => ({
+  linkStyle: {
+    textDecoration: "none",
   },
-});
-const useStyles = makeStyles({
-  linkStyle:{
-    textDecoration:"none"
-  }
-})
+  button: {
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    color: "#fff",
+  },
+}));
 function Form() {
   const styles = useStyles();
   return (
@@ -70,11 +74,11 @@ function Form() {
           ></TextField>
         </Grid>
         <Grid item xs={12}>
-          <ThemeProvider theme={theme}>
-            <Link className={styles.linkStyle} to="/dashboard">
-              <Button variant="outlined">Login</Button>
-            </Link>
-          </ThemeProvider>
+          <Link className={styles.linkStyle} to="/dashboard">
+            <Button variant="outlined" className={styles.button}>
+              Login
+            </Button>
+          </Link>
         </Grid>
 
         <Grid item xs={12}>
