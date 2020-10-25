@@ -14,7 +14,7 @@ import TurnedInIcon from "@material-ui/icons/TurnedIn";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Avatar from "@material-ui/core/Avatar";
 import { useStyles } from "./AppHeaderStyle";
-const AppHeader = () => {
+  const AppHeader =  () =>  {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -143,6 +143,7 @@ const AppHeader = () => {
       </AppBar>
     </div>
   );
-};
+}
+
 
 export default AppHeader;

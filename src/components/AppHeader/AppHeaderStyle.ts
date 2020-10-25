@@ -15,7 +15,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: "0",
       color: "white",
       fontWeight: "bold",
-      fontSize: "17px",
+      
       margin: "8px",
       "& :hover": {
         color: "#d50000",
@@ -45,14 +45,14 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     avatar: {
       marginRight: "10px",
-      marginTop: "20px",
+      marginTop: "10px",
     },
     barIcon: {
       color: "#ffecb3",
       fontWeight: "bold",
-      fontSize: "2.5rem",
+      fontSize: "1rem",
       fontFamily: '"Sansita Swashed", cursive',
-      marginRight: "50px",
+      marginRight: "20px",
     },
   })
 );
