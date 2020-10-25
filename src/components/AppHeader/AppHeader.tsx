@@ -1,9 +1,6 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-
 import Button from "@material-ui/core/Button";
-
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import GroupIcon from "@material-ui/icons/Group";
 import Menu from "@material-ui/core/Menu";
@@ -16,65 +13,8 @@ import KitchenIcon from "@material-ui/icons/Kitchen";
 import TurnedInIcon from "@material-ui/icons/TurnedIn";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Avatar from "@material-ui/core/Avatar";
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      // flexGrow: 1,
-      color: "black",
-    },
-    barButton: {
-      paddingLeft: "0",
-      color: "white",
-      fontWeight: "bold",
-      fontSize: "17px",
-      margin: "8px",
-      "& :hover": {
-        color: "#d50000",
-      },
-    },
-    barList: {
-      display: "flex",
-      justifyContent: "center",
-      marginLeft: "10px",
-    },
-    bar: {
-      backgroundColor: "#ffa726",
-
-      display: "flex",
-    },
-    leftList: {
-      display: "flex",
-    },
-    list: {
-      display: "flex",
-      justifyContent: "space-between",
-      padding: "10px",
-    },
-    rightList: {
-      display: "flex",
-      justifyContent: "space-between",
-    },
-    avatar: {
-      marginRight: "10px",
-      marginTop: "20px",
-    },
-    barIcon: {
-      color: "#ffecb3",
-      fontWeight: "bold",
-      fontSize: "2.5rem",
-      fontFamily: '"Sansita Swashed", cursive',
-      marginRight: "50px",
-    },
-  })
-);
-
-export default function ButtonAppBar() {
+import { useStyles } from "./AppHeaderStyle";
+const AppHeader = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -203,4 +143,6 @@ export default function ButtonAppBar() {
       </AppBar>
     </div>
   );
-}
+};
+
+export default AppHeader;
