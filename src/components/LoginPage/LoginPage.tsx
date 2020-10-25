@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Paper } from "@material-ui/core";
 
 import Form from "../loginForm/form";
 import { useStyles } from "./LoginPageStyle";
 
-function LoginPage() {
+interface LoginFormType {
+  onLogin: () => void;
+}
+function LoginPage({ onLogin }: LoginFormType) {
   const styles = useStyles();
+
   return (
     <div>
       <div className={styles.container}>
@@ -24,7 +28,7 @@ function LoginPage() {
             classes={{ root: styles.root }}
             className={styles.containerRightPanelPaper}
           >
-            <Form />
+            <Form onLogin={onLogin} />
           </Paper>
         </div>
       </div>

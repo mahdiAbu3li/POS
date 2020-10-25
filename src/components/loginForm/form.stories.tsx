@@ -7,5 +7,4 @@ export default {
   component: Form,
 };
 
-
-export const FirstStory = () => <Form />;
+export const FirstStory = () => <Form onLogin={() => 0} />;
