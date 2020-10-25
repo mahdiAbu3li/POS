@@ -32,9 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: "0",
       color: "white",
       fontWeight: "bold",
+      fontSize: "17px",
       margin: "8px",
       "& :hover": {
-        color: "black",
+        color: "#d50000",
       },
     },
     barList: {
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: "10px",
     },
     bar: {
-      backgroundColor: "#ff6f00",
+      backgroundColor: "#ffa726",
 
       display: "flex",
     },
@@ -61,13 +62,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     avatar: {
       marginRight: "10px",
-      marginTop: "6px",
+      marginTop: "20px",
     },
     barIcon: {
-      color: "#673ab7",
+      color: "#ffecb3",
       fontWeight: "bold",
-      fontSize: "1.5rem",
+      fontSize: "2.5rem",
       fontFamily: '"Sansita Swashed", cursive',
+      marginRight: "50px",
     },
   })
 );
