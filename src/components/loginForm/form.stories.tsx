@@ -5,6 +5,8 @@ import Form from "./form";
 export default {
   title: "form",
   component: Form,
+  
 };
 
-export const FirstStory = () => <Form onLogin={() => 0} />;
+
+export const FirstStory = (onLogin:() => void) => <Form onLogin={onLogin} />;

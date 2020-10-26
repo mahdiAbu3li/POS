@@ -14,8 +14,12 @@ import TurnedInIcon from "@material-ui/icons/TurnedIn";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Avatar from "@material-ui/core/Avatar";
 import { useStyles } from "./AppHeaderStyle";
+import { Redirect } from "react-router-dom";
 
-const AppHeader = () => {
+interface logoutType {
+  logout: () => void
+}
+const AppHeader = ({logout}:logoutType) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
@@ -34,6 +38,9 @@ const AppHeader = () => {
     setAnchorEl2(null);
   };
 
+  const handleLogout = () => {    
+    logout()
+  }
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.bar}>
@@ -143,6 +150,7 @@ const AppHeader = () => {
               color="inherit"
               className={classes.barButton}
               endIcon={<ExitToAppIcon />}
+              onClick={handleLogout}
             >
               LOGOUT
             </Button>

@@ -7,4 +7,6 @@ export default {
   component: LoginPage,
 };
 
-export const FirstStory = () => <LoginPage onLogin={() => 0} />;
+export const FirstStory = (onLogin: () => void) => (
+  <LoginPage onLogin={onLogin} />
+);
