@@ -14,7 +14,7 @@ import TurnedInIcon from "@material-ui/icons/TurnedIn";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Avatar from "@material-ui/core/Avatar";
 import { useStyles } from "./AppHeaderStyle";
-import { Redirect } from "react-router-dom";
+
 
 interface logoutType {
   logout: () => void

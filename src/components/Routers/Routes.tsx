@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import LoginPage from "../LoginPage/LoginPage";
 import Dashboard from "../Dashboard/Dashboard";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { AppCtx } from "../../LoginContext";
-import { DesktopWindows } from "@material-ui/icons";
+
 
 function Routes() {
   const [isLoggedIn, setIsLoggedIn] = useState<string | null>(
