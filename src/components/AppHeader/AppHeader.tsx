@@ -14,16 +14,24 @@ import TurnedInIcon from "@material-ui/icons/TurnedIn";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Avatar from "@material-ui/core/Avatar";
 import { useStyles } from "./AppHeaderStyle";
-  const AppHeader =  () =>  {
+
+const AppHeader = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
+    
+    setAnchorEl2(event.currentTarget);
+  };
+
 
   const handleClose = () => {
     setAnchorEl(null);
+    setAnchorEl2(null);
   };
 
   return (
@@ -52,26 +60,26 @@ import { useStyles } from "./AppHeaderStyle";
               </Button>
 
               <Button
-                aria-controls="simple-menu"
+                aria-controls="people"
                 aria-haspopup="true"
                 onClick={handleClick}
                 color="inherit"
                 className={classes.barButton}
                 startIcon={<GroupIcon />}
               >
-                people
+                People
                 <ExpandMoreIcon />
               </Button>
               <Menu
-                id="simple-menu"
+                id="people"
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>item1</MenuItem>
-                <MenuItem onClick={handleClose}>item2</MenuItem>
-                <MenuItem onClick={handleClose}>item3</MenuItem>
+                <MenuItem onClick={handleClose}>Customers</MenuItem>
+                <MenuItem onClick={handleClose}>Suppliers</MenuItem>
+                
               </Menu>
               <Button
                 color="inherit"
@@ -88,9 +96,9 @@ import { useStyles } from "./AppHeaderStyle";
                 Expense
               </Button>
               <Button
-                aria-controls="simple-menu"
+                aria-controls="catagories"
                 aria-haspopup="true"
-                onClick={handleClick}
+                onClick={handleClick2}
                 color="inherit"
                 className={classes.barButton}
                 startIcon={<TurnedInIcon />}
@@ -99,15 +107,15 @@ import { useStyles } from "./AppHeaderStyle";
                 <ExpandMoreIcon />
               </Button>
               <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
+                id="catagories"
+                anchorEl={anchorEl2}
                 keepMounted
-                open={Boolean(anchorEl)}
+                open={Boolean(anchorEl2)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>item1</MenuItem>
-                <MenuItem onClick={handleClose}>item2</MenuItem>
-                <MenuItem onClick={handleClose}>item3</MenuItem>
+                <MenuItem onClick={handleClose}>Sales</MenuItem>
+                <MenuItem onClick={handleClose}>Expense</MenuItem>
+                
               </Menu>
 
               <Button
@@ -143,7 +151,6 @@ import { useStyles } from "./AppHeaderStyle";
       </AppBar>
     </div>
   );
-}
-
+};
 
 export default AppHeader;

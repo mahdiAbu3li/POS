@@ -6,9 +6,11 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./components/Routers/Routes";
 const theme = createMuiTheme({
-  palette:{
-    
-  }
+  palette: {
+   primary:{
+     main:"#ffa726"
+   }
+  },
 });
 
 function App() {
