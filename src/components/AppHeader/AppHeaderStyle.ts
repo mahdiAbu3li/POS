@@ -8,15 +8,13 @@ export const useStyles = makeStyles((theme: Theme) =>
     menuButton: {
       marginRight: theme.spacing(2),
     },
-    title: {
-      color: "black",
-    },
+
     barButton: {
       paddingLeft: "0",
       color: "white",
       fontWeight: "bold",
-      
-      margin: "8px",
+
+      margin: theme.spacing(1),
       "& :hover": {
         color: "#d50000",
       },
@@ -27,7 +25,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginLeft: "10px",
     },
     bar: {
-      backgroundColor: "#ffa726",
+      backgroundColor: theme.palette.primary.main,
 
       display: "flex",
     },
