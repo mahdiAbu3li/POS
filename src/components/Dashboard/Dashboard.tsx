@@ -1,11 +1,13 @@
-import React from 'react'
+import React from "react";
+import AppHeader from "../AppHeader/AppHeader";
 
 function Dashboard() {
-    return (
-        <div>
-            <h1>Dashboard</h1>
-        </div>
-    )
+  return (
+    <div>
+      <AppHeader />
+      <h1>Dashboard</h1>
+    </div>
+  );
 }
 
-export default Dashboard
+export default Dashboard;

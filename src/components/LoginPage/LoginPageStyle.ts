@@ -28,11 +28,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   containerLeftPanel: {
     zIndex: 11,
-    color: "#fff",
-    fontFamily: 'Sansita Swashed", cursive',
+    color: "#673ab7",
+    fontFamily: '"Sansita Swashed", cursive',
     "& h1": {
       fontSize: "4.5vw",
-      fontFamily: "'Sansita Swashed', cursive",
+      fontFamily: '"Sansita Swashed", cursive',
     },
   },
   containerRightPanel: {
