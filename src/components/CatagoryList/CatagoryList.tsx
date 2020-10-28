@@ -1,4 +1,4 @@
-import React, { useState, createRef } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -13,7 +13,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
 
 const useStyles = makeStyles({
   table: {
@@ -41,7 +40,7 @@ const rows = [
 
 export default function BasicTable() {
   const [open, setOpen] = useState(false);
-  const [buttonId, setbuttonId] = useState(-1);
+  const [buttonId, setButtonId] = useState(-1);
   const [data, setData] = useState(rows);
   const classes = useStyles();
 
@@ -59,7 +58,6 @@ export default function BasicTable() {
   const ConfirmDelete = () => {
     deleteRow().then((isValid) => {
       if (isValid) {
-        
         setData(data.filter((j) => buttonId !== j.id));
       }
     });
@@ -87,7 +85,7 @@ export default function BasicTable() {
                   <Button
                     variant="outlined"
                     onClick={() => {
-                      setbuttonId(row.id);
+                      setButtonId(row.id);
                       handleDeleteOpen();
                     }}
                   >
@@ -119,7 +117,7 @@ export default function BasicTable() {
                   onClick={() => {
                     ConfirmDelete();
                   }}
-                  color="secondary"                  
+                  color="secondary"
                   autoFocus
                 >
                   Confirm
