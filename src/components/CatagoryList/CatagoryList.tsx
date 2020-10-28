@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -13,6 +13,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
+
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -25,20 +27,27 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(CategoryName: string, CreatedAt: string) {
-  return { CategoryName, CreatedAt };
+function createData(id: number, CategoryName: string, CreatedAt: string) {
+  return { id, CategoryName, CreatedAt };
 }
 
 const rows = [
-  createData("Frozen yoghurt", "12-12-2020"),
-  createData("Frozen yoghurt", "12-12-2020"),
-  createData("Frozen yoghurt", "12-12-2020"),
-  createData("Frozen yoghurt", "12-12-2020"),
+  createData(1, "mahdi", "12-12-2020"),
+  createData(2, "imad", "12-12-2020"),
+  createData(3, "Frozen", "12-12-2020"),
+  createData(4, "yoghurt", "12-12-2020"),
+  createData(5, "1234567", "12-12-2020"),
 ];
 
 export default function BasicTable() {
   const [open, setOpen] = useState(false);
+  const [buttonId, setbuttonId] = useState(-1);
+  const [data, setData] = useState(rows);
   const classes = useStyles();
+
+  const deleteRow = () => {
+    return new Promise((resolve) => setTimeout(() => resolve(true), 500));
+  };
 
   const handleDeleteOpen = () => {
     setOpen(true);
@@ -47,10 +56,15 @@ export default function BasicTable() {
   const handleClose = () => {
     setOpen(false);
   };
-  const ConfirmDelete = () =>{
+  const ConfirmDelete = () => {
+    deleteRow().then((isValid) => {
+      if (isValid) {
+        
+        setData(data.filter((j) => buttonId !== j.id));
+      }
+    });
     setOpen(false);
-    
-  }
+  };
   return (
     <Container>
       <TableContainer component={Paper} className={classes.paper}>
@@ -63,42 +77,55 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.CategoryName}>
+            {data.map((row) => (
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.CategoryName}
                 </TableCell>
                 <TableCell align="left">{row.CreatedAt}</TableCell>
                 <TableCell align="left">
-                  <Button variant="outlined" onClick={handleDeleteOpen}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      setbuttonId(row.id);
+                      handleDeleteOpen();
+                    }}
+                  >
                     <DeleteIcon />
                   </Button>
-
-                  <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                  >
-                    <DialogTitle id="alert-dialog-title">
-                      {"Are you sure you want to delete this record?"}
-                    </DialogTitle>
-                   
-                    <DialogActions>
-                      <Button onClick={handleClose} color="secondary">
-                        Close
-                      </Button>
-                      <Button onClick={ConfirmDelete} color="secondary" autoFocus>
-                        Confirm
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
                   <Button variant="outlined">
                     <EditIcon />
                   </Button>
                 </TableCell>
               </TableRow>
             ))}
+
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Are you sure you want to delete this record?"}
+              </DialogTitle>
+
+              <DialogActions>
+                <Button onClick={handleClose} color="secondary">
+                  Close
+                </Button>
+
+                <Button
+                  onClick={() => {
+                    ConfirmDelete();
+                  }}
+                  color="secondary"                  
+                  autoFocus
+                >
+                  Confirm
+                </Button>
+              </DialogActions>
+            </Dialog>
           </TableBody>
         </Table>
       </TableContainer>
