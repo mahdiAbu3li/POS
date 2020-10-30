@@ -7,14 +7,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Button, Container } from "@material-ui/core";
+import { Button, Container, TableSortLabel } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
@@ -24,24 +24,31 @@ const useStyles = makeStyles({
   buttonAction: {
     backgroundColor: "white",
   },
-});
+  tableHeader: {
+    backgroundColor: theme.palette.primary.main,
+    color: "#fff",
+  },
+}));
 
 function createData(id: number, CategoryName: string, CreatedAt: string) {
   return { id, CategoryName, CreatedAt };
 }
 
 const rows = [
-  createData(1, "mahdi", "12-12-2020"),
-  createData(2, "imad", "12-12-2020"),
-  createData(3, "Frozen", "12-12-2020"),
-  createData(4, "yoghurt", "12-12-2020"),
-  createData(5, "1234567", "12-12-2020"),
+  createData(1, "mahdi", "1-12-2020"),
+  createData(4, "coghurt", "4-12-2020"),
+  createData(5, "d234567", "3-12-2020"),
+  createData(2, "amad", "2-12-2020"),
+  createData(3, "brozen", "5-12-2020"),
 ];
 
 export default function BasicTable() {
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState(-1);
   const [data, setData] = useState(rows);
+  const [order, setOrder] = useState<"asc" | "desc">("asc");
+  const [orderBy, setOrderBy] = useState("");
+
   const classes = useStyles();
 
   const deleteRow = () => {
@@ -63,14 +70,64 @@ export default function BasicTable() {
     });
     setOpen(false);
   };
+
+  const handleSort = (name: string) => {
+    const isAsc = orderBy === name && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(name);
+
+    if (orderBy === "category") {
+      setData(
+        data.sort((a, b) => {
+          if (a.CategoryName[0] > b.CategoryName[0]) {
+            return order === "asc" ? 1 : -1;
+          } else if (a.CategoryName[0] < b.CategoryName[0]) {
+            return order === "asc" ? -1 : 1;
+          }
+          return 0;
+        })
+      );
+    } else if (orderBy === "date") {
+      setData(
+        data.sort((a, b) => {
+          if (a.CreatedAt[0] > b.CreatedAt[0]) {
+            return order === "asc" ? 1 : -1;
+          } else if (a.CreatedAt[0] < b.CreatedAt[0]) {
+            return order === "asc" ? -1 : 1;
+          }
+          return 0;
+        })
+      );
+    }
+  };
+
   return (
-    <Container>
+    
       <TableContainer component={Paper} className={classes.paper}>
         <Table className={classes.table} aria-label="simple table">
-          <TableHead>
+          <TableHead className={classes.tableHeader}>
             <TableRow>
-              <TableCell>Category Name</TableCell>
-              <TableCell align="left">Created&nbsp; At</TableCell>
+              <TableCell key="category">
+                <TableSortLabel
+                  active={orderBy === "category"}
+                  direction={orderBy === "category" ? order : "asc"}
+                  onClick={() => {
+                    handleSort("category");
+                  }}
+                >
+                  Category Name
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="left" key="date">
+                <TableSortLabel
+                  active={orderBy === "date"}
+                  direction={orderBy === "date" ? order : "asc"}
+                  onClick={() => handleSort("date")}
+                >
+                  Created&nbsp; At
+                </TableSortLabel>
+              </TableCell>
+
               <TableCell align="left">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -127,6 +184,5 @@ export default function BasicTable() {
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
   );
 }
