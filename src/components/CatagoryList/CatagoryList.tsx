@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flext",
     justifyContent: "space-between",
   },
+  rowStyle: {
+    backgroundColor: "#FFECB3",
+  },
 }));
 
 function createData(id: number, CategoryName: string, CreatedAt: string) {
@@ -198,8 +201,11 @@ export default function BasicTable() {
           <TableBody>
             {filteredArray
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow key={row.id}>
+              .map((row, i) => (
+                <TableRow
+                  key={row.id}
+                  className={i % 2 !== 0 ? classes.rowStyle : ""}
+                >
                   <TableCell component="th" scope="row">
                     {row.CategoryName}
                   </TableCell>
