@@ -22,7 +22,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import TablePagination from "@material-ui/core/TablePagination";
-
+import AddCategoryForm from "../AddCategoryForm/AddCategoryForm";
+import AddIcon from "@material-ui/icons/Add";
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -78,7 +79,8 @@ export default function BasicTable() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [titleForm, setTitleForm] = useState("");
   const classes = useStyles();
 
   const deleteRow = () => {
@@ -147,12 +149,31 @@ export default function BasicTable() {
     setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
   };
-
+  const handleAddCategory = () => {
+    setTitleForm("Add Category");
+    setOpenDialog(true);
+  };
+  const handleEditCategory = (id:number) => {
+    setTitleForm("Edit Category");
+    setButtonId(id);
+    setOpenDialog(true);
+  };
   return (
     <Container>
+      <AddCategoryForm
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
+        title={titleForm}
+        buttonId={buttonId}
+      />
       <TableContainer component={Paper} className={classes.paper}>
         <Toolbar className={classes.toolBar}>
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={handleAddCategory}
+            startIcon={<AddIcon />}
+          >
             Add Category
           </Button>
 
@@ -220,7 +241,10 @@ export default function BasicTable() {
                     >
                       <DeleteIcon />
                     </Button>
-                    <Button variant="outlined">
+                    <Button
+                      variant="outlined"
+                    onClick={() =>handleEditCategory(row.id)}
+                    >
                       <EditIcon />
                     </Button>
                   </TableCell>
