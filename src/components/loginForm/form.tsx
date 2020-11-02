@@ -8,14 +8,10 @@ import LockIcon from "@material-ui/icons/Lock";
 
 import Grid from "@material-ui/core/Grid";
 
-
-
 const validateLogin = (userName: string, password: string) =>
   new Promise((resolve) =>
-    setTimeout(() => resolve((userName === "admin" && password === "1234")  ), 500)
+    setTimeout(() => resolve(userName === "admin" && password === "1234"), 500)
   );
-
-  
 
 const useStyles = makeStyles((theme) => ({
   linkStyle: {
@@ -40,14 +36,13 @@ function Form({ onLogin }: LoginFormProps) {
 
   function handleLogin() {
     setError(null);
-    
+
     validateLogin(name, password).then((isValid) => {
       if (isValid) {
         onLogin();
-        
       } else {
         setError("Username/password is invalid");
-        console.log(error)
+        console.log(error);
       }
     });
   }

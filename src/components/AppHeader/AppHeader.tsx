@@ -15,11 +15,10 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Avatar from "@material-ui/core/Avatar";
 import { useStyles } from "./AppHeaderStyle";
 
-
 interface logoutType {
-  logout: () => void
+  onLogout: () => void;
 }
-const AppHeader = ({logout}:logoutType) => {
+const AppHeader = ({ onLogout }: logoutType) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
@@ -28,19 +27,17 @@ const AppHeader = ({logout}:logoutType) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
-    
     setAnchorEl2(event.currentTarget);
   };
-
 
   const handleClose = () => {
     setAnchorEl(null);
     setAnchorEl2(null);
   };
 
-  const handleLogout = () => {    
-    logout()
-  }
+  const handleLogout = () => {
+    onLogout();
+  };
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.bar}>
@@ -86,7 +83,6 @@ const AppHeader = ({logout}:logoutType) => {
               >
                 <MenuItem onClick={handleClose}>Customers</MenuItem>
                 <MenuItem onClick={handleClose}>Suppliers</MenuItem>
-                
               </Menu>
               <Button
                 color="inherit"
@@ -122,7 +118,6 @@ const AppHeader = ({logout}:logoutType) => {
               >
                 <MenuItem onClick={handleClose}>Sales</MenuItem>
                 <MenuItem onClick={handleClose}>Expense</MenuItem>
-                
               </Menu>
 
               <Button

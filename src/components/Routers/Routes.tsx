@@ -1,40 +1,25 @@
-import React, {  useState } from "react";
+import React from "react";
 import LoginPage from "../LoginPage/LoginPage";
 import Dashboard from "../Dashboard/Dashboard";
-import { Switch, Route, Redirect } from "react-router-dom";
-
+import { Switch, Route } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 function Routes() {
-  const [isLoggedIn, setIsLoggedIn] = useState<string | null>(
-    window.localStorage.getItem("loggedIn")
-  );
-
-  function updateState() {
-    setIsLoggedIn("true");
-    window.localStorage.setItem("loggedIn", "true");
-  }
-
-  function handleLogout() {
-    setIsLoggedIn("false");
-    window.localStorage.setItem("loggedIn", "false");
-  }
-
   return (
     <div>
-      {isLoggedIn === "true" ? (
-        <Redirect to="/dashboard" />
-      ) : (
-        <Redirect to="/" />
-      )}
-      <Switch>
-        <Route path="/" exact>
-          <LoginPage onLogin={updateState} />
-        </Route>
-
-        <Route path="/dashboard">
-          <Dashboard logout={handleLogout} />
-        </Route>
-      </Switch>
+      <AuthContext.Consumer>
+        {(value) => (
+          <Switch>
+            <Route path="/" exact>
+              <LoginPage onLogin={value.handleLogin} />
+            </Route>
+            <PrivateRoute path="/dashboard">
+              <Dashboard onLogout={value.handleLogout} />
+            </PrivateRoute>
+          </Switch>
+        )}
+      </AuthContext.Consumer>
     </div>
   );
 }

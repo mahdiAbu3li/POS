@@ -1,12 +1,12 @@
 import React from "react";
 import AppHeader from "../AppHeader/AppHeader";
 interface logoutType {
-  logout: () => void
+  onLogout: () => void
 }
-function Dashboard({logout}:logoutType) {
+function Dashboard({onLogout}:logoutType) {
   return (
     <div>
-      <AppHeader logout={logout}/>
+      <AppHeader onLogout={onLogout}/>
       <h1>Dashboard</h1>
     </div>
   );
