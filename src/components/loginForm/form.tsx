@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import LockIcon from "@material-ui/icons/Lock";
-import { Link } from "react-router-dom";
+
 import Grid from "@material-ui/core/Grid";
+
+const validateLogin = (userName: string, password: string) =>
+  new Promise((resolve) =>
+    setTimeout(() => resolve(userName === "admin" && password === "1234"), 500)
+  );
 
 const useStyles = makeStyles((theme) => ({
   linkStyle: {
@@ -17,8 +22,31 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
 }));
-function Form() {
+
+interface LoginFormProps {
+  // Called when the user successfully loges in
+  onLogin: () => void;
+}
+
+function Form({ onLogin }: LoginFormProps) {
   const styles = useStyles();
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<null | string>(null);
+
+  function handleLogin() {
+    setError(null);
+
+    validateLogin(name, password).then((isValid) => {
+      if (isValid) {
+        onLogin();
+      } else {
+        setError("Username/password is invalid");
+        console.log(error);
+      }
+    });
+  }
+
   return (
     <>
       <Grid container>
@@ -27,6 +55,7 @@ function Form() {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            onChange={(e) => setName(e.target.value)}
             id="userName"
             label="User Name"
             InputProps={{
@@ -41,6 +70,7 @@ function Form() {
 
         <Grid item xs={12}>
           <TextField
+            onChange={(e) => setPassword(e.target.value)}
             id="password"
             label="Password"
             type="password"
@@ -54,11 +84,13 @@ function Form() {
           ></TextField>
         </Grid>
         <Grid item xs={12}>
-          <Link className={styles.linkStyle} to="/dashboard">
-            <Button variant="outlined" className={styles.button}>
-              Login
-            </Button>
-          </Link>
+          <Button
+            variant="outlined"
+            className={styles.button}
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
         </Grid>
 
         <Grid item xs={12}>
