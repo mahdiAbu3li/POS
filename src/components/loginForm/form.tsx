@@ -8,10 +8,17 @@ import LockIcon from "@material-ui/icons/Lock";
 
 import Grid from "@material-ui/core/Grid";
 
-const validateLogin = (userName: string, password: string) =>
-  new Promise((resolve) =>
-    setTimeout(() => resolve(userName === "admin" && password === "1234"), 500)
-  );
+const validateLogin = async (userName: string, password: string) => {
+  return fetch(
+    `http://localhost:8000/users?username=${userName}&password=${password}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.length > 0) {
+        return true;
+      } else return false;
+    });
+};
 
 const useStyles = makeStyles((theme) => ({
   linkStyle: {
@@ -36,7 +43,6 @@ function Form({ onLogin }: LoginFormProps) {
 
   function handleLogin() {
     setError(null);
-
     validateLogin(name, password).then((isValid) => {
       if (isValid) {
         onLogin();
