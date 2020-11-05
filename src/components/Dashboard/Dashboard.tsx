@@ -1,6 +1,6 @@
 import React from "react";
 import AppHeader from "../AppHeader/AppHeader";
-import CatagoryList from "../CatagoryList/CatagoryList";
+import CatagoryList from "../CategoryList/CategoryList";
 
 interface logoutType {
   onLogout: () => void
