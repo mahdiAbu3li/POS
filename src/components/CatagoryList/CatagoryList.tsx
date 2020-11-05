@@ -26,23 +26,22 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(id: number, CategoryName: string, CreatedAt: string) {
-  return { id, CategoryName, CreatedAt };
-}
-
-const rows = [
-  createData(1, "mahdi", "12-12-2020"),
-  createData(2, "imad", "12-12-2020"),
-  createData(3, "Frozen", "12-12-2020"),
-  createData(4, "yoghurt", "12-12-2020"),
-  createData(5, "1234567", "12-12-2020"),
-];
-
 export default function BasicTable() {
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState(-1);
-  const [data, setData] = useState(rows);
+  interface typeData {
+    id: number;
+    category_name: string;
+    created_at: string;
+  }
+  const [data, setData] = useState<typeData[]>([]);
   const classes = useStyles();
+
+  React.useEffect(() => {
+    fetch("http://localhost:8000/categories")
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
 
   const deleteRow = () => {
     return new Promise((resolve) => setTimeout(() => resolve(true), 500));
@@ -78,9 +77,9 @@ export default function BasicTable() {
             {data.map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {row.CategoryName}
+                  {row.category_name}
                 </TableCell>
-                <TableCell align="left">{row.CreatedAt}</TableCell>
+                <TableCell align="left">{row.created_at}</TableCell>
                 <TableCell align="left">
                   <Button
                     variant="outlined"
