@@ -38,7 +38,7 @@ const rows = [
   createData(5, "1234567", "12-12-2020"),
 ];
 
-export default function CategoryList() {
+export default function BasicTable() {
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState(-1);
   const [data, setData] = useState(rows);

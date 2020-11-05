@@ -21,6 +21,44 @@
           "user_name":"ali",
           "password":"1010"
       }
+  ],
+  "Products":[
+      {
+          "id":1,
+          "code":"123",
+          "name":"shocha",
+          "category":"roz",
+          "product_description":"qalqilia",
+          "tax":20,
+          "price":25
+      },
+      {
+          "id":2,
+          "code":"A25",
+          "name":"cola",
+          "category":"drinks",
+          "product_description":"nablus",
+          "tax":30,
+          "price":5
+      },
+      {
+          "id":3,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25
+      },
+      {
+          "id":4,
+          "code":"B121",
+          "name":"twix",
+          "category":"chocolate",
+          "product_description":"paris",
+          "tax":10,
+          "price":2.5
+      }
   ]
 
 }
