@@ -77,9 +77,11 @@ export default function ProductList() {
     tax: number;
     price: number;
   }
+  type orderType = Omit<typeData , "id" >
+  
   const [data, setData] = useState<typeData[]>([]);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
-  const [orderBy, setOrderBy] = useState("");
+  const [orderBy, setOrderBy] = useState<keyof orderType>("name");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -119,28 +121,28 @@ export default function ProductList() {
     setOpen(false);
   };
 
-  const handleSort = (name: string) => {
+  const handleSort = (name: keyof orderType) => {
     const isAsc = orderBy === name && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(name);
 
-    if (orderBy === "category") {
+    if (orderBy === "tax" || orderBy==="price") {
       setData(
         data.sort((a, b) => {
-          if (a.category[0] > b.category[0]) {
+          if (a[orderBy] > b[orderBy]) {
             return order === "asc" ? 1 : -1;
-          } else if (a.category[0] < b.category[0]) {
+          } else if (a[orderBy] < b[orderBy]) {
             return order === "asc" ? -1 : 1;
           }
           return 0;
         })
       );
-    } else if (orderBy === "name") {
+    } else  {
       setData(
         data.sort((a, b) => {
-          if (a.name[0] > b.name[0]) {
+          if (a[orderBy][0] > b[orderBy][0]) {
             return order === "asc" ? 1 : -1;
-          } else if (a.name[0] < b.name[0]) {
+          } else if (a[orderBy][0] < b[orderBy][0]) {
             return order === "asc" ? -1 : 1;
           }
           return 0;
@@ -259,9 +261,9 @@ export default function ProductList() {
                 </TableCell>
                 <TableCell align="left" key="description">
                   <TableSortLabel
-                    active={orderBy === "description"}
-                    direction={orderBy === "description" ? order : "asc"}
-                    onClick={() => handleSort("description")}
+                    active={orderBy === "product_description"}
+                    direction={orderBy === "product_description" ? order : "asc"}
+                    onClick={() => handleSort("product_description")}
                   >
                     Product&nbsp;Description
                   </TableSortLabel>
