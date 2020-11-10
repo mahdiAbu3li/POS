@@ -101,14 +101,14 @@ export default function BasicTable() {
     });
     setOpen(false);
   };
-
-  const handleSort = (name: string) => {
-    const isAsc = orderBy === name && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(name);
-
+  interface typeData {
+    id: number;
+    CategoryName: string;
+    CreatedAt: string;
+  }
+  const sortArray = (data: typeData[], orderBy: any): typeData[] => {
     if (orderBy === "category") {
-      const sortData = data.sort((a, b) => {
+      return data.sort((a, b) => {
         if (a.CategoryName[0] > b.CategoryName[0]) {
           return order === "asc" ? 1 : -1;
         } else if (a.CategoryName[0] < b.CategoryName[0]) {
@@ -116,18 +116,27 @@ export default function BasicTable() {
         }
         return 0;
       });
-      setData(sortData);
     } else if (orderBy === "date") {
-     const sortData =  data.sort((a, b) => {
+      return data.sort((a, b) => {
         if (a.CreatedAt[0] > b.CreatedAt[0]) {
           return order === "asc" ? 1 : -1;
         } else if (a.CreatedAt[0] < b.CreatedAt[0]) {
           return order === "asc" ? -1 : 1;
         }
         return 0;
-      })
-      setData(sortData);
+      });
+    } else {
+      return data;
     }
+  };
+  const sortedAndFilteredArray = sortArray(data, orderBy).filter((item) =>
+    item.CategoryName.includes(search)
+  );
+
+  const handleSort = (name: string) => {
+    const isAsc = orderBy === name && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(name);
   };
 
   const handleSearch = (e: any) => {
@@ -197,7 +206,7 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredArray
+            {sortedAndFilteredArray
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, i) => (
                 <TableRow
