@@ -22,7 +22,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import TablePagination from "@material-ui/core/TablePagination";
-
+import { sortArray, typeData } from "../sortFunction/sortArray";
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -74,7 +74,7 @@ export default function BasicTable() {
   const [buttonId, setButtonId] = useState(-1);
   const [data, setData] = useState(rows);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
-  const [orderBy, setOrderBy] = useState("");
+  const [orderBy, setOrderBy] = useState<keyof typeData>("CategoryName");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -101,39 +101,13 @@ export default function BasicTable() {
     });
     setOpen(false);
   };
-  interface typeData {
-    id: number;
-    CategoryName: string;
-    CreatedAt: string;
-  }
-  const sortArray = (data: typeData[], orderBy: any): typeData[] => {
-    if (orderBy === "category") {
-      return data.sort((a, b) => {
-        if (a.CategoryName[0] > b.CategoryName[0]) {
-          return order === "asc" ? 1 : -1;
-        } else if (a.CategoryName[0] < b.CategoryName[0]) {
-          return order === "asc" ? -1 : 1;
-        }
-        return 0;
-      });
-    } else if (orderBy === "date") {
-      return data.sort((a, b) => {
-        if (a.CreatedAt[0] > b.CreatedAt[0]) {
-          return order === "asc" ? 1 : -1;
-        } else if (a.CreatedAt[0] < b.CreatedAt[0]) {
-          return order === "asc" ? -1 : 1;
-        }
-        return 0;
-      });
-    } else {
-      return data;
-    }
-  };
-  const sortedAndFilteredArray = sortArray(data, orderBy).filter((item) =>
-    item.CategoryName.includes(search)
-  );
+  const sortedAndFilteredArray = sortArray(
+    data,
+    orderBy,
+    order
+  ).filter((item) => item.CategoryName.includes(search));
 
-  const handleSort = (name: string) => {
+  const handleSort = (name: keyof typeData) => {
     const isAsc = orderBy === name && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(name);
@@ -164,9 +138,6 @@ export default function BasicTable() {
           </Button>
 
           <TextField
-            // size="small"
-            // label="search by category name"
-            // variant="outlined"
             placeholder="Search"
             InputProps={{
               startAdornment: (
@@ -183,10 +154,10 @@ export default function BasicTable() {
             <TableRow>
               <TableCell>
                 <TableSortLabel
-                  active={orderBy === "category"}
-                  direction={orderBy === "category" ? order : "asc"}
+                  active={orderBy === "CategoryName"}
+                  direction={orderBy === "CategoryName" ? order : "asc"}
                   onClick={() => {
-                    handleSort("category");
+                    handleSort("CategoryName");
                   }}
                 >
                   Category Name
@@ -194,9 +165,9 @@ export default function BasicTable() {
               </TableCell>
               <TableCell align="left">
                 <TableSortLabel
-                  active={orderBy === "date"}
-                  direction={orderBy === "date" ? order : "asc"}
-                  onClick={() => handleSort("date")}
+                  active={orderBy === "CreatedAt"}
+                  direction={orderBy === "CreatedAt" ? order : "asc"}
+                  onClick={() => handleSort("CreatedAt")}
                 >
                   Created&nbsp; At
                 </TableSortLabel>
