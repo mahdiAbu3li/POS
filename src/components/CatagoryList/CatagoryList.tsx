@@ -108,27 +108,25 @@ export default function BasicTable() {
     setOrderBy(name);
 
     if (orderBy === "category") {
-      setData(
-        data.sort((a, b) => {
-          if (a.CategoryName[0] > b.CategoryName[0]) {
-            return order === "asc" ? 1 : -1;
-          } else if (a.CategoryName[0] < b.CategoryName[0]) {
-            return order === "asc" ? -1 : 1;
-          }
-          return 0;
-        })
-      );
+      const sortData = data.sort((a, b) => {
+        if (a.CategoryName[0] > b.CategoryName[0]) {
+          return order === "asc" ? 1 : -1;
+        } else if (a.CategoryName[0] < b.CategoryName[0]) {
+          return order === "asc" ? -1 : 1;
+        }
+        return 0;
+      });
+      setData(sortData);
     } else if (orderBy === "date") {
-      setData(
-        data.sort((a, b) => {
-          if (a.CreatedAt[0] > b.CreatedAt[0]) {
-            return order === "asc" ? 1 : -1;
-          } else if (a.CreatedAt[0] < b.CreatedAt[0]) {
-            return order === "asc" ? -1 : 1;
-          }
-          return 0;
-        })
-      );
+     const sortData =  data.sort((a, b) => {
+        if (a.CreatedAt[0] > b.CreatedAt[0]) {
+          return order === "asc" ? 1 : -1;
+        } else if (a.CreatedAt[0] < b.CreatedAt[0]) {
+          return order === "asc" ? -1 : 1;
+        }
+        return 0;
+      })
+      setData(sortData);
     }
   };
 
