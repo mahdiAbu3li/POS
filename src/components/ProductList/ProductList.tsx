@@ -27,7 +27,10 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { isWithinInterval } from "date-fns";
+// import isWithinRange from 'date-fns/is_within_range'
 import DescriptionIcon from "@material-ui/icons/Description";
+import { parse } from "date-fns";
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -76,21 +79,31 @@ export default function ProductList() {
     product_description: string;
     tax: number;
     price: number;
+    expiration_date: string;
   }
-  type orderType = Omit<typeData , "id" >
-  
+  type orderType = Omit<typeData, "id">;
+
   const [data, setData] = useState<typeData[]>([]);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
   const [orderBy, setOrderBy] = useState<keyof orderType>("name");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date("2014-08-18T21:11:54")
-  );
+  const [fromDate, setFromDate] = React.useState<Date | null>(new Date());
+  const [toDate, setToDate] = React.useState<Date | null>(new Date());
+  // console.log(fromDate + " " + toDate)
 
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
+  //   if(fromDate !== null && toDate !== null){
+  //   isWithinInterval(
+  //   new Date(2014, 0, 8),
+  //   { start: fromDate, end: toDate }
+  // );
+  //   }
+  const handleFromDate = (date: Date | null) => {
+    setFromDate(date);
+  };
+  const handleToDate = (date: Date | null) => {
+    setToDate(date);
   };
 
   React.useEffect(() => {
@@ -120,13 +133,25 @@ export default function ProductList() {
     });
     setOpen(false);
   };
+  const handleApplyFilter = () => {
+    if (fromDate !== null && toDate !== null) {
+      setData(
+        data.filter((i) =>
+          isWithinInterval(parse(i.expiration_date, "dd/MM/yyyy", new Date()), {
+            start: fromDate,
+            end: toDate,
+          })
+        )
+      );
+    }
+  };
 
   const handleSort = (name: keyof orderType) => {
     const isAsc = orderBy === name && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(name);
 
-    if (orderBy === "tax" || orderBy==="price") {
+    if (orderBy === "tax" || orderBy === "price") {
       setData(
         data.sort((a, b) => {
           if (a[orderBy] > b[orderBy]) {
@@ -137,7 +162,7 @@ export default function ProductList() {
           return 0;
         })
       );
-    } else  {
+    } else {
       setData(
         data.sort((a, b) => {
           if (a[orderBy][0] > b[orderBy][0]) {
@@ -184,8 +209,8 @@ export default function ProductList() {
               margin="normal"
               id="date-picker-inline"
               label="From"
-              value={selectedDate}
-              onChange={handleDateChange}
+              value={fromDate}
+              onChange={handleFromDate}
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
@@ -199,13 +224,15 @@ export default function ProductList() {
               margin="normal"
               id="date-picker-inline"
               label="To"
-              value={selectedDate}
-              onChange={handleDateChange}
+              value={toDate}
+              onChange={handleToDate}
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
             />
-            <Button variant="outlined">Apply Filter</Button>
+            <Button variant="outlined" onClick={handleApplyFilter}>
+              Apply Filter
+            </Button>
           </Toolbar>
           <Toolbar className={classes.toolBar}>
             <Button color="primary" variant="contained">
@@ -262,7 +289,9 @@ export default function ProductList() {
                 <TableCell align="left" key="description">
                   <TableSortLabel
                     active={orderBy === "product_description"}
-                    direction={orderBy === "product_description" ? order : "asc"}
+                    direction={
+                      orderBy === "product_description" ? order : "asc"
+                    }
                     onClick={() => handleSort("product_description")}
                   >
                     Product&nbsp;Description
@@ -287,6 +316,15 @@ export default function ProductList() {
                   </TableSortLabel>
                 </TableCell>
 
+                <TableCell align="left" key="expiration_date">
+                  <TableSortLabel
+                    active={orderBy === "expiration_date"}
+                    direction={orderBy === "expiration_date" ? order : "asc"}
+                    onClick={() => handleSort("expiration_date")}
+                  >
+                    Expiration Date
+                  </TableSortLabel>
+                </TableCell>
                 <TableCell align="left">Action</TableCell>
               </TableRow>
             </TableHead>
@@ -309,6 +347,7 @@ export default function ProductList() {
                     </TableCell>
                     <TableCell align="left">{row.tax}</TableCell>
                     <TableCell align="left">{row.price}</TableCell>
+                    <TableCell align="left">{row.expiration_date}</TableCell>
                     <TableCell align="left">
                       <Button
                         variant="outlined"
