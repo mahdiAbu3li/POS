@@ -1,16 +1,15 @@
-import React from "react";
-export interface typeData {
+export interface TypeData {
   id: number;
   CategoryName: string;
   CreatedAt: string;
 }
-type orderBy = keyof typeData;
+type orderBy = keyof TypeData;
 type order = "asc" | "desc";
 const sortArray = (
-  data: typeData[],
+  data: TypeData[],
   orderBy: orderBy,
   order: order
-): typeData[] => {
+): TypeData[] => {
   if (orderBy === "CategoryName") {
     return data.sort((a, b) => {
       if (a.CategoryName[0] > b.CategoryName[0]) {

@@ -22,7 +22,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import TablePagination from "@material-ui/core/TablePagination";
-import { sortArray, typeData } from "../sortFunction/sortArray";
+import { sortArray, TypeData } from "../sortFunction/sortArray";
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -74,7 +74,7 @@ export default function BasicTable() {
   const [buttonId, setButtonId] = useState(-1);
   const [data, setData] = useState(rows);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
-  const [orderBy, setOrderBy] = useState<keyof typeData>("CategoryName");
+  const [orderBy, setOrderBy] = useState<keyof TypeData>("CategoryName");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -107,7 +107,7 @@ export default function BasicTable() {
     order
   ).filter((item) => item.CategoryName.includes(search));
 
-  const handleSort = (name: keyof typeData) => {
+  const handleSort = (name: keyof TypeData) => {
     const isAsc = orderBy === name && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(name);
