@@ -22,7 +22,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import TablePagination from "@material-ui/core/TablePagination";
-import { sortArray, TypeData } from "../sortFunction/sortArray";
+import { sortArray } from "../sortFunction/sortArray";
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -51,22 +51,22 @@ function createData(id: number, CategoryName: string, CreatedAt: string) {
 }
 
 const rows = [
-  createData(1, "mahdi", "1-12-2020"),
-  createData(55, "coghurt", "4-12-2020"),
-  createData(54, "d234567", "3-12-2020"),
-  createData(22, "amad", "2-12-2020"),
-  createData(3, "asd", "5-12-2020"),
-  createData(4, "kj", "5-12-2020"),
-  createData(5, "brweozen", "5-12-2020"),
-  createData(6, "we", "5-12-2020"),
-  createData(7, "qwqw", "5-12-2020"),
-  createData(8, "nhcsk", "5-12-2020"),
-  createData(9, "sdguvd", "5-12-2020"),
-  createData(10, "dfghbv", "5-12-2020"),
-  createData(11, "vcvb", "5-12-2020"),
-  createData(12, "bnnmn", "5-12-2020"),
-  createData(13, "mjmj", "5-12-2020"),
-  createData(14, "aqjfg", "5-12-2020"),
+  createData(1, "mahdi", "1/12/2020"),
+  createData(55, "coghurt", "4/12/2020"),
+  createData(54, "d234567", "3/12/2020"),
+  createData(22, "amad", "2/12/2020"),
+  createData(3, "asd", "5/12/2020"),
+  createData(4, "kj", "5/12/2020"),
+  createData(5, "brweozen", "5/12/2020"),
+  createData(6, "we", "5/12/2020"),
+  createData(7, "qwqw", "5/12/2020"),
+  createData(8, "nhcsk", "5/12/2020"),
+  createData(9, "sdguvd", "5/12/2020"),
+  createData(10, "dfghbv", "5/12/2020"),
+  createData(11, "vcvb", "5/12/2020"),
+  createData(12, "bnnmn", "5/12/2020"),
+  createData(13, "mjmj", "5/12/2020"),
+  createData(14, "aqjfg", "5/12/2020"),
 ];
 
 export default function BasicTable() {
@@ -74,17 +74,22 @@ export default function BasicTable() {
   const [buttonId, setButtonId] = useState(-1);
   const [data, setData] = useState(rows);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
+  interface TypeData {
+    id: number;
+    CategoryName: string;
+    CreatedAt: string;
+  }
   const [orderBy, setOrderBy] = useState<keyof TypeData>("CategoryName");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  
   const classes = useStyles();
 
   const deleteRow = () => {
     return new Promise((resolve) => setTimeout(() => resolve(true), 500));
   };
-
+  
   const handleDeleteOpen = () => {
     setOpen(true);
   };
@@ -105,12 +110,13 @@ export default function BasicTable() {
     data,
     orderBy,
     order
+
   ).filter((item) => item.CategoryName.includes(search));
 
   const handleSort = (name: keyof TypeData) => {
     const isAsc = orderBy === name && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(name);
+    setOrderBy(name);    
   };
 
   const handleSearch = (e: any) => {
