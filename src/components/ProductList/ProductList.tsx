@@ -27,10 +27,10 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import { isWithinInterval } from "date-fns";
+
 // import isWithinRange from 'date-fns/is_within_range'
 import DescriptionIcon from "@material-ui/icons/Description";
-import { parse } from "date-fns";
+
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -133,17 +133,9 @@ export default function ProductList() {
     });
     setOpen(false);
   };
+
   const handleApplyFilter = () => {
-    if (fromDate !== null && toDate !== null) {
-      setData(
-        data.filter((i) =>
-          isWithinInterval(parse(i.expiration_date, "dd/MM/yyyy", new Date()), {
-            start: fromDate,
-            end: toDate,
-          })
-        )
-      );
-    }
+    
   };
 
   const handleSort = (name: keyof orderType) => {
