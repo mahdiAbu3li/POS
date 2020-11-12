@@ -1,26 +1,76 @@
 {
-    
-  "users" :[
-      {
-          "id":"1",
-          "user_name":"mahdi",
-          "password":"1234"
-      },
-      {
-          "id":"2",
-          "user_name":"abd",
-          "password":"0000"
-      },
-      {
-          "id":"3",
-          "user_name":"ahmad",
-          "password":"1111"
-      },
-      {
-          "id":"4",
-          "user_name":"ali",
-          "password":"1010"
-      }
+  "users": [
+    {
+      "id": "1",
+      "user_name": "mahdi",
+      "password": "1234"
+    },
+    {
+      "id": "2",
+      "user_name": "abd",
+      "password": "0000"
+    },
+    {
+      "id": "3",
+      "user_name": "ahmad",
+      "password": "1111"
+    },
+    {
+      "id": "4",
+      "user_name": "ali",
+      "password": "1010"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "category_name": "roz",
+      "created_at": "10-12-2020"
+    },
+    {
+      "id": 2,
+      "category_name": "mahdi",
+      "created_at": "11-12-2020"
+    },
+    {
+      "id": 3,
+      "category_name": "table",
+      "created_at": "12-12-2020"
+    },
+    {
+      "id": 4,
+      "category_name": "chair",
+      "created_at": "8-12-2020"
+    },
+    {
+      "id": 5,
+      "category_name": "books",
+      "created_at": "6-12-2020"
+    },
+    {
+      "id": 6,
+      "category_name": "pens",
+      "created_at": "4-12-2020"
+    },
+    {
+      "id": 7,
+      "category_name": "food",
+      "created_at": "1-12-2020"
+    },
+    {
+      "id": 8,
+      "category_name": "drinks",
+      "created_at": "2-12-2020"
+    },
+    {
+      "id": 9,
+      "category_name": "cola",
+      "created_at": "9-12-2020"
+    },
+    {
+      "id": 10,
+      "category_name": "fish",
+      "created_at": "3-12-2020"
+    }
   ]
-
 }
