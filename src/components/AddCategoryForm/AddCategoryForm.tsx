@@ -17,7 +17,6 @@ export default function AddCategoryForm(props: typeProps) {
   const { openDialog, setOpenDialog, title, buttonId } = props;
 
   const handleClose = () => {
-      console.log(buttonId)
     setOpenDialog(false);
   };
 
@@ -37,7 +36,7 @@ export default function AddCategoryForm(props: typeProps) {
             autoFocus
             margin="dense"
             id="name"
-            placeholder={title==="Add Category" ?"Add Category":"Edit Category" }
+            placeholder={title}
             type="email"
             fullWidth
             required
