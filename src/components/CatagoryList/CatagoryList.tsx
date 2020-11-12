@@ -24,6 +24,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import TablePagination from "@material-ui/core/TablePagination";
 import AddCategoryForm from "../AddCategoryForm/AddCategoryForm";
 import AddIcon from "@material-ui/icons/Add";
+import { sortArray } from "../sortFunction/sortArray";
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -52,22 +53,22 @@ function createData(id: number, CategoryName: string, CreatedAt: string) {
 }
 
 const rows = [
-  createData(1, "mahdi", "1-12-2020"),
-  createData(55, "coghurt", "4-12-2020"),
-  createData(54, "d234567", "3-12-2020"),
-  createData(22, "amad", "2-12-2020"),
-  createData(3, "asd", "5-12-2020"),
-  createData(4, "kj", "5-12-2020"),
-  createData(5, "brweozen", "5-12-2020"),
-  createData(6, "we", "5-12-2020"),
-  createData(7, "qwqw", "5-12-2020"),
-  createData(8, "nhcsk", "5-12-2020"),
-  createData(9, "sdguvd", "5-12-2020"),
-  createData(10, "dfghbv", "5-12-2020"),
-  createData(11, "vcvb", "5-12-2020"),
-  createData(12, "bnnmn", "5-12-2020"),
-  createData(13, "mjmj", "5-12-2020"),
-  createData(14, "aqjfg", "5-12-2020"),
+  createData(1, "mahdi", "1/12/2020"),
+  createData(55, "coghurt", "4/12/2020"),
+  createData(54, "d234567", "3/12/2020"),
+  createData(22, "amad", "2/12/2020"),
+  createData(3, "asd", "5/12/2020"),
+  createData(4, "kj", "5/12/2020"),
+  createData(5, "brweozen", "5/12/2020"),
+  createData(6, "we", "5/12/2020"),
+  createData(7, "qwqw", "5/12/2020"),
+  createData(8, "nhcsk", "5/12/2020"),
+  createData(9, "sdguvd", "5/12/2020"),
+  createData(10, "dfghbv", "5/12/2020"),
+  createData(11, "vcvb", "5/12/2020"),
+  createData(12, "bnnmn", "5/12/2020"),
+  createData(13, "mjmj", "5/12/2020"),
+  createData(14, "aqjfg", "5/12/2020"),
 ];
 
 export default function BasicTable() {
@@ -75,7 +76,12 @@ export default function BasicTable() {
   const [buttonId, setButtonId] = useState(-1);
   const [data, setData] = useState(rows);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
-  const [orderBy, setOrderBy] = useState("");
+  interface TypeData {
+    id: number;
+    CategoryName: string;
+    CreatedAt: string;
+  }
+  const [orderBy, setOrderBy] = useState<keyof TypeData>("CategoryName");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -103,35 +109,16 @@ export default function BasicTable() {
     });
     setOpen(false);
   };
+  const sortedAndFilteredArray = sortArray(
+    data,
+    orderBy,
+    order
+  ).filter((item) => item.CategoryName.includes(search));
 
-  const handleSort = (name: string) => {
+  const handleSort = (name: keyof TypeData) => {
     const isAsc = orderBy === name && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(name);
-
-    if (orderBy === "category") {
-      setData(
-        data.sort((a, b) => {
-          if (a.CategoryName[0] > b.CategoryName[0]) {
-            return order === "asc" ? 1 : -1;
-          } else if (a.CategoryName[0] < b.CategoryName[0]) {
-            return order === "asc" ? -1 : 1;
-          }
-          return 0;
-        })
-      );
-    } else if (orderBy === "date") {
-      setData(
-        data.sort((a, b) => {
-          if (a.CreatedAt[0] > b.CreatedAt[0]) {
-            return order === "asc" ? 1 : -1;
-          } else if (a.CreatedAt[0] < b.CreatedAt[0]) {
-            return order === "asc" ? -1 : 1;
-          }
-          return 0;
-        })
-      );
-    }
   };
 
   const handleSearch = (e: any) => {
@@ -153,7 +140,7 @@ export default function BasicTable() {
     setTitleForm("Add Category");
     setOpenDialog(true);
   };
-  const handleEditCategory = (id:number) => {
+  const handleEditCategory = (id: number) => {
     setTitleForm("Edit Category");
     setButtonId(id);
     setOpenDialog(true);
@@ -178,9 +165,6 @@ export default function BasicTable() {
           </Button>
 
           <TextField
-            // size="small"
-            // label="search by category name"
-            // variant="outlined"
             placeholder="Search"
             InputProps={{
               startAdornment: (
@@ -197,10 +181,10 @@ export default function BasicTable() {
             <TableRow>
               <TableCell>
                 <TableSortLabel
-                  active={orderBy === "category"}
-                  direction={orderBy === "category" ? order : "asc"}
+                  active={orderBy === "CategoryName"}
+                  direction={orderBy === "CategoryName" ? order : "asc"}
                   onClick={() => {
-                    handleSort("category");
+                    handleSort("CategoryName");
                   }}
                 >
                   Category Name
@@ -208,9 +192,9 @@ export default function BasicTable() {
               </TableCell>
               <TableCell align="left">
                 <TableSortLabel
-                  active={orderBy === "date"}
-                  direction={orderBy === "date" ? order : "asc"}
-                  onClick={() => handleSort("date")}
+                  active={orderBy === "CreatedAt"}
+                  direction={orderBy === "CreatedAt" ? order : "asc"}
+                  onClick={() => handleSort("CreatedAt")}
                 >
                   Created&nbsp; At
                 </TableSortLabel>
@@ -220,7 +204,7 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredArray
+            {sortedAndFilteredArray
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, i) => (
                 <TableRow
@@ -243,7 +227,7 @@ export default function BasicTable() {
                     </Button>
                     <Button
                       variant="outlined"
-                    onClick={() =>handleEditCategory(row.id)}
+                      onClick={() => handleEditCategory(row.id)}
                     >
                       <EditIcon />
                     </Button>
