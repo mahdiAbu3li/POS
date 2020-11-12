@@ -14,7 +14,7 @@ interface typeProps {
   buttonId: number;
 }
 export default function AddCategoryForm(props: typeProps) {
-  const { openDialog, setOpenDialog, title, buttonId } = props;
+  const { openDialog, setOpenDialog, title } = props;
 
   const handleClose = () => {
     setOpenDialog(false);
