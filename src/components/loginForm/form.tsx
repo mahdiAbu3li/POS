@@ -13,7 +13,7 @@ const validateLogin = async (userName: string, password: string) => {
     `http://localhost:8000/users?username=${userName}&password=${password}`
   )
     .then((res) => res.json())
-    .then((data) => {
+    .then((data) => {      
       if (data.length > 0) {
         return true;
       } else return false;

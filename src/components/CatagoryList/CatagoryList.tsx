@@ -47,47 +47,30 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#FFECB3",
   },
 }));
-
-function createData(id: number, CategoryName: string, CreatedAt: string) {
-  return { id, CategoryName, CreatedAt };
+interface TypeData {
+  id: number;
+  category_name: string;
+  created_at: string;
 }
-
-const rows = [
-  createData(1, "mahdi", "1/12/2020"),
-  createData(55, "coghurt", "4/12/2020"),
-  createData(54, "d234567", "3/12/2020"),
-  createData(22, "amad", "2/12/2020"),
-  createData(3, "asd", "5/12/2020"),
-  createData(4, "kj", "5/12/2020"),
-  createData(5, "brweozen", "5/12/2020"),
-  createData(6, "we", "5/12/2020"),
-  createData(7, "qwqw", "5/12/2020"),
-  createData(8, "nhcsk", "5/12/2020"),
-  createData(9, "sdguvd", "5/12/2020"),
-  createData(10, "dfghbv", "5/12/2020"),
-  createData(11, "vcvb", "5/12/2020"),
-  createData(12, "bnnmn", "5/12/2020"),
-  createData(13, "mjmj", "5/12/2020"),
-  createData(14, "aqjfg", "5/12/2020"),
-];
-
 export default function BasicTable() {
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState(-1);
-  const [data, setData] = useState(rows);
+  const [data, setData] = useState<TypeData[]>([]);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
-  interface TypeData {
-    id: number;
-    CategoryName: string;
-    CreatedAt: string;
-  }
-  const [orderBy, setOrderBy] = useState<keyof TypeData>("CategoryName");
+  const [orderBy, setOrderBy] = useState<keyof TypeData>("category_name");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [titleForm, setTitleForm] = useState("");
+
   const classes = useStyles();
+
+  React.useEffect(() => {
+    fetch("http://localhost:8000/categories")
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
 
   const deleteRow = () => {
     return new Promise((resolve) => setTimeout(() => resolve(true), 500));
@@ -113,7 +96,9 @@ export default function BasicTable() {
     data,
     orderBy,
     order
-  ).filter((item) => item.CategoryName.includes(search));
+
+  ).filter((item) => item.category_name.includes(search));
+
 
   const handleSort = (name: keyof TypeData) => {
     const isAsc = orderBy === name && order === "asc";
@@ -126,7 +111,7 @@ export default function BasicTable() {
   };
 
   const filteredArray = data.filter((item) =>
-    item.CategoryName.includes(search)
+    item.category_name.includes(search)
   );
 
   const handleChangePage = (e: any, newPage: number) => {
@@ -181,10 +166,10 @@ export default function BasicTable() {
             <TableRow>
               <TableCell>
                 <TableSortLabel
-                  active={orderBy === "CategoryName"}
-                  direction={orderBy === "CategoryName" ? order : "asc"}
+                  active={orderBy === "category_name"}
+                  direction={orderBy === "category_name" ? order : "asc"}
                   onClick={() => {
-                    handleSort("CategoryName");
+                    handleSort("category_name");
                   }}
                 >
                   Category Name
@@ -192,9 +177,9 @@ export default function BasicTable() {
               </TableCell>
               <TableCell align="left">
                 <TableSortLabel
-                  active={orderBy === "CreatedAt"}
-                  direction={orderBy === "CreatedAt" ? order : "asc"}
-                  onClick={() => handleSort("CreatedAt")}
+                  active={orderBy === "created_at"}
+                  direction={orderBy === "created_at" ? order : "asc"}
+                  onClick={() => handleSort("created_at")}
                 >
                   Created&nbsp; At
                 </TableSortLabel>
@@ -212,9 +197,9 @@ export default function BasicTable() {
                   className={i % 2 !== 0 ? classes.rowStyle : ""}
                 >
                   <TableCell component="th" scope="row">
-                    {row.CategoryName}
+                    {row.category_name}
                   </TableCell>
-                  <TableCell align="left">{row.CreatedAt}</TableCell>
+                  <TableCell align="left">{row.created_at}</TableCell>
                   <TableCell align="left">
                     <Button
                       variant="outlined"
