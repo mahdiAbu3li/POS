@@ -1,6 +1,6 @@
 import { isWithinInterval } from "date-fns";
 import { parse } from "date-fns";
-interface TypeData {
+export interface TypeData {
   id: number;
   code: string;
   name: string;
@@ -12,7 +12,7 @@ interface TypeData {
 }
 type TypeDate = Date | null;
 
-export const FilterFunction = (
+export const FilterDateFunction = (
   data: TypeData[],
   fromDate: TypeDate,
   toDate: TypeDate

@@ -22,16 +22,12 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import TablePagination from "@material-ui/core/TablePagination";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-
-// import isWithinRange from 'date-fns/is_within_range'
+import DateFilter from "../DateFilter/DateFilter";
+import { TypeData } from "../Function/FilterDateFunction";
 import DescriptionIcon from "@material-ui/icons/Description";
+// import { FilterDateFunction } from "../Function/FilterDateFunction";
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
@@ -71,26 +67,15 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductList() {
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState(-1);
-  interface typeData {
-    id: number;
-    code: string;
-    name: string;
-    category: string;
-    product_description: string;
-    tax: number;
-    price: number;
-    expiration_date: string;
-  }
-  type orderType = Omit<typeData, "id">;
+  type orderType = Omit<TypeData, "id">;
 
-  const [data, setData] = useState<typeData[]>([]);
+  const [data, setData] = useState<TypeData[]>([]);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
   const [orderBy, setOrderBy] = useState<keyof orderType>("name");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [fromDate, setFromDate] = React.useState<Date | null>(new Date());
-  const [toDate, setToDate] = React.useState<Date | null>(new Date());
+
   // console.log(fromDate + " " + toDate)
 
   //   if(fromDate !== null && toDate !== null){
@@ -99,12 +84,6 @@ export default function ProductList() {
   //   { start: fromDate, end: toDate }
   // );
   //   }
-  const handleFromDate = (date: Date | null) => {
-    setFromDate(date);
-  };
-  const handleToDate = (date: Date | null) => {
-    setToDate(date);
-  };
 
   React.useEffect(() => {
     fetch("http://localhost:8000/Products")
@@ -132,10 +111,6 @@ export default function ProductList() {
       }
     });
     setOpen(false);
-  };
-
-  const handleApplyFilter = () => {
-    
   };
 
   const handleSort = (name: keyof orderType) => {
@@ -172,12 +147,14 @@ export default function ProductList() {
     setSearch(e.target.value);
   };
 
-  const filteredArray = data.filter(
+  let ArrayAfterSearch = data.filter(
     (item) =>
       item.name.toLowerCase().includes(search.toLowerCase()) ||
       item.code.toLowerCase().includes(search.toLowerCase())
   );
-
+  const arrayAfterDateFilter = () => {
+   
+  };
   const handleChangePage = (e: any, newPage: number) => {
     setPage(newPage);
   };
@@ -188,217 +165,177 @@ export default function ProductList() {
 
   return (
     <Container>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <TableContainer component={Paper} className={classes.paper}>
-          <Toolbar className={classes.dataFilter}>
-            <div>Expiration Date :</div>
+      <TableContainer component={Paper} className={classes.paper}>
+        <DateFilter onChange={arrayAfterDateFilter} />
+        <Toolbar className={classes.toolBar}>
+          <Button color="primary" variant="contained">
+            Add Product
+          </Button>
 
-            <KeyboardDatePicker
-              className={classes.datePicker}
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="From"
-              value={fromDate}
-              onChange={handleFromDate}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-
-            <KeyboardDatePicker
-              className={classes.datePicker}
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="To"
-              value={toDate}
-              onChange={handleToDate}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-            <Button variant="outlined" onClick={handleApplyFilter}>
-              Apply Filter
-            </Button>
-          </Toolbar>
-          <Toolbar className={classes.toolBar}>
-            <Button color="primary" variant="contained">
-              Add Product
-            </Button>
-
-            <TextField
-              // size="small"
-              // label="search by category name"
-              // variant="outlined"
-              placeholder="Search"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-              onChange={handleSearch}
-            />
-          </Toolbar>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead className={classes.tableHeader}>
-              <TableRow>
-                <TableCell key="code">
-                  <TableSortLabel
-                    active={orderBy === "code"}
-                    direction={orderBy === "code" ? order : "asc"}
-                    onClick={() => {
-                      handleSort("code");
-                    }}
-                  >
-                    Code
-                  </TableSortLabel>
-                </TableCell>
-                <TableCell align="left" key="name">
-                  <TableSortLabel
-                    active={orderBy === "name"}
-                    direction={orderBy === "name" ? order : "asc"}
-                    onClick={() => handleSort("name")}
-                  >
-                    Name
-                  </TableSortLabel>
-                </TableCell>
-                <TableCell align="left" key="category">
-                  <TableSortLabel
-                    active={orderBy === "category"}
-                    direction={orderBy === "category" ? order : "asc"}
-                    onClick={() => handleSort("category")}
-                  >
-                    Category
-                  </TableSortLabel>
-                </TableCell>
-                <TableCell align="left" key="description">
-                  <TableSortLabel
-                    active={orderBy === "product_description"}
-                    direction={
-                      orderBy === "product_description" ? order : "asc"
-                    }
-                    onClick={() => handleSort("product_description")}
-                  >
-                    Product&nbsp;Description
-                  </TableSortLabel>
-                </TableCell>
-                <TableCell align="left" key="tax">
-                  <TableSortLabel
-                    active={orderBy === "tax"}
-                    direction={orderBy === "tax" ? order : "asc"}
-                    onClick={() => handleSort("tax")}
-                  >
-                    Tax(%)
-                  </TableSortLabel>
-                </TableCell>
-                <TableCell align="left" key="price">
-                  <TableSortLabel
-                    active={orderBy === "price"}
-                    direction={orderBy === "price" ? order : "asc"}
-                    onClick={() => handleSort("price")}
-                  >
-                    Price
-                  </TableSortLabel>
-                </TableCell>
-
-                <TableCell align="left" key="expiration_date">
-                  <TableSortLabel
-                    active={orderBy === "expiration_date"}
-                    direction={orderBy === "expiration_date" ? order : "asc"}
-                    onClick={() => handleSort("expiration_date")}
-                  >
-                    Expiration Date
-                  </TableSortLabel>
-                </TableCell>
-                <TableCell align="left">Action</TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {filteredArray
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, i) => (
-                  <TableRow
-                    key={row.id}
-                    className={i % 2 !== 0 ? classes.rowStyle : ""}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.code}
-                    </TableCell>
-                    <TableCell align="left">{row.name}</TableCell>
-                    <TableCell align="left">{row.category}</TableCell>
-                    <TableCell align="left">
-                      {row.product_description}
-                    </TableCell>
-                    <TableCell align="left">{row.tax}</TableCell>
-                    <TableCell align="left">{row.price}</TableCell>
-                    <TableCell align="left">{row.expiration_date}</TableCell>
-                    <TableCell align="left">
-                      <Button
-                        variant="outlined"
-                        onClick={() => {
-                          setButtonId(row.id);
-                          handleDeleteOpen();
-                        }}
-                      >
-                        <DeleteIcon />
-                      </Button>
-                      <Button variant="outlined">
-                        <EditIcon />
-                      </Button>
-                      <Button variant="outlined">
-                        <DescriptionIcon />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  {"Are you sure you want to delete this record?"}
-                </DialogTitle>
-
-                <DialogActions>
-                  <Button onClick={handleClose} color="secondary">
-                    Close
-                  </Button>
-
-                  <Button
-                    onClick={() => {
-                      ConfirmDelete();
-                    }}
-                    color="secondary"
-                    autoFocus
-                  >
-                    Confirm
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </TableBody>
-          </Table>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={filteredArray.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
+          <TextField
+            // size="small"
+            // label="search by category name"
+            // variant="outlined"
+            placeholder="Search"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+            onChange={handleSearch}
           />
-        </TableContainer>
-      </MuiPickersUtilsProvider>
+        </Toolbar>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead className={classes.tableHeader}>
+            <TableRow>
+              <TableCell key="code">
+                <TableSortLabel
+                  active={orderBy === "code"}
+                  direction={orderBy === "code" ? order : "asc"}
+                  onClick={() => {
+                    handleSort("code");
+                  }}
+                >
+                  Code
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="left" key="name">
+                <TableSortLabel
+                  active={orderBy === "name"}
+                  direction={orderBy === "name" ? order : "asc"}
+                  onClick={() => handleSort("name")}
+                >
+                  Name
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="left" key="category">
+                <TableSortLabel
+                  active={orderBy === "category"}
+                  direction={orderBy === "category" ? order : "asc"}
+                  onClick={() => handleSort("category")}
+                >
+                  Category
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="left" key="description">
+                <TableSortLabel
+                  active={orderBy === "product_description"}
+                  direction={orderBy === "product_description" ? order : "asc"}
+                  onClick={() => handleSort("product_description")}
+                >
+                  Product&nbsp;Description
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="left" key="tax">
+                <TableSortLabel
+                  active={orderBy === "tax"}
+                  direction={orderBy === "tax" ? order : "asc"}
+                  onClick={() => handleSort("tax")}
+                >
+                  Tax(%)
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="left" key="price">
+                <TableSortLabel
+                  active={orderBy === "price"}
+                  direction={orderBy === "price" ? order : "asc"}
+                  onClick={() => handleSort("price")}
+                >
+                  Price
+                </TableSortLabel>
+              </TableCell>
+
+              <TableCell align="left" key="expiration_date">
+                <TableSortLabel
+                  active={orderBy === "expiration_date"}
+                  direction={orderBy === "expiration_date" ? order : "asc"}
+                  onClick={() => handleSort("expiration_date")}
+                >
+                  Expiration Date
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="left">Action</TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {ArrayAfterSearch.slice(
+              page * rowsPerPage,
+              page * rowsPerPage + rowsPerPage
+            ).map((row, i) => (
+              <TableRow
+                key={row.id}
+                className={i % 2 !== 0 ? classes.rowStyle : ""}
+              >
+                <TableCell component="th" scope="row">
+                  {row.code}
+                </TableCell>
+                <TableCell align="left">{row.name}</TableCell>
+                <TableCell align="left">{row.category}</TableCell>
+                <TableCell align="left">{row.product_description}</TableCell>
+                <TableCell align="left">{row.tax}</TableCell>
+                <TableCell align="left">{row.price}</TableCell>
+                <TableCell align="left">{row.expiration_date}</TableCell>
+                <TableCell align="left">
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      setButtonId(row.id);
+                      handleDeleteOpen();
+                    }}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                  <Button variant="outlined">
+                    <EditIcon />
+                  </Button>
+                  <Button variant="outlined">
+                    <DescriptionIcon />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Are you sure you want to delete this record?"}
+              </DialogTitle>
+
+              <DialogActions>
+                <Button onClick={handleClose} color="secondary">
+                  Close
+                </Button>
+
+                <Button
+                  onClick={() => {
+                    ConfirmDelete();
+                  }}
+                  color="secondary"
+                  autoFocus
+                >
+                  Confirm
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </TableBody>
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={ArrayAfterSearch.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </TableContainer>
     </Container>
   );
 }
