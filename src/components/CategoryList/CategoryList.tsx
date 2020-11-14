@@ -24,7 +24,10 @@ import SearchIcon from "@material-ui/icons/Search";
 import TablePagination from "@material-ui/core/TablePagination";
 import AddCategoryForm from "../AddCategoryForm/AddCategoryForm";
 import AddIcon from "@material-ui/icons/Add";
-import { sortArray } from "../Function/sortArray";
+// import {
+//   sortStringAndNumericArray,
+//   sortDateArray,
+// } from "../Function/sortArray";
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -92,13 +95,9 @@ export default function BasicTable() {
     });
     setOpen(false);
   };
-  const sortedAndFilteredArray = sortArray(
-    data,
-    orderBy,
-    order
-
-  ).filter((item) => item.category_name.includes(search));
-
+  const sortedAndFilteredArray = data.filter((item) =>
+    item.category_name.includes(search)
+  );
 
   const handleSort = (name: keyof TypeData) => {
     const isAsc = orderBy === name && order === "asc";

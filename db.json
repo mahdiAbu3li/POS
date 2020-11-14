@@ -57,6 +57,56 @@
         },
         {
           "id":4,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"8/12/2020"
+        },
+        {
+          "id":5,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"8/12/2020"
+        },
+        {
+          "id":6,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"8/12/2020"
+        },
+        {
+          "id":7,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"8/12/2020"
+        },
+        {
+          "id":8,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"8/12/2020"
+        },
+        {
+          "id":9,
           "code":"B121",
           "name":"twix",
           "category":"chocolate",

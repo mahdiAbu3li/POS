@@ -64,10 +64,6 @@ export const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
-
 export default function ProductList() {
   const [data, setData] = useState<TypeData[]>([]);
   const [open, setOpen] = useState(false);
@@ -89,7 +85,7 @@ export default function ProductList() {
     rowsPerPage,
     ArrayAfterSortAndSliceAndFilter,
   } = useTable(data);
-  
+
   const deleteRow = () => {
     return new Promise((resolve) => setTimeout(() => resolve(true), 500));
   };
@@ -122,7 +118,7 @@ export default function ProductList() {
   //   }
 
   const classes = useStyles();
-
+  
   return (
     <Container>
       <TableContainer component={Paper} className={classes.paper}>
@@ -286,7 +282,7 @@ export default function ProductList() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={ArrayAfterSortAndSliceAndFilter.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
