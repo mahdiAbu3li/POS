@@ -26,7 +26,7 @@ import DateFilter from "../DateFilter/DateFilter";
 import { TypeData } from "../Function/FilterDateFunction";
 import DescriptionIcon from "@material-ui/icons/Description";
 // import { FilterDateFunction } from "../Function/FilterDateFunction";
-
+import useTable from "../CustomHook/useTable";
 export const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -64,38 +64,37 @@ export const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
+
 export default function ProductList() {
+  const [data, setData] = useState<TypeData[]>([]);
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState(-1);
-  type orderType = Omit<TypeData, "id">;
-
-  const [data, setData] = useState<TypeData[]>([]);
-  const [order, setOrder] = useState<"asc" | "desc">("asc");
-  const [orderBy, setOrderBy] = useState<keyof orderType>("name");
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  // console.log(fromDate + " " + toDate)
-
-  //   if(fromDate !== null && toDate !== null){
-  //   isWithinInterval(
-  //   new Date(2014, 0, 8),
-  //   { start: fromDate, end: toDate }
-  // );
-  //   }
-
   React.useEffect(() => {
     fetch("http://localhost:8000/Products")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
-  const classes = useStyles();
 
+  const {
+    handleChangeRowsPerPage,
+    handleChangePage,
+    handleSearch,
+    handleSort,
+    order,
+    orderBy,
+    page,
+    rowsPerPage,
+    ArrayAfterSortAndSliceAndFilter,
+  } = useTable(data);
+  
   const deleteRow = () => {
     return new Promise((resolve) => setTimeout(() => resolve(true), 500));
   };
 
+  const arrayAfterDateFilter = () => {};
   const handleDeleteOpen = () => {
     setOpen(true);
   };
@@ -113,55 +112,16 @@ export default function ProductList() {
     setOpen(false);
   };
 
-  const handleSort = (name: keyof orderType) => {
-    const isAsc = orderBy === name && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(name);
+  // console.log(fromDate + " " + toDate)
 
-    if (orderBy === "tax" || orderBy === "price") {
-      setData(
-        data.sort((a, b) => {
-          if (a[orderBy] > b[orderBy]) {
-            return order === "asc" ? 1 : -1;
-          } else if (a[orderBy] < b[orderBy]) {
-            return order === "asc" ? -1 : 1;
-          }
-          return 0;
-        })
-      );
-    } else {
-      setData(
-        data.sort((a, b) => {
-          if (a[orderBy][0] > b[orderBy][0]) {
-            return order === "asc" ? 1 : -1;
-          } else if (a[orderBy][0] < b[orderBy][0]) {
-            return order === "asc" ? -1 : 1;
-          }
-          return 0;
-        })
-      );
-    }
-  };
+  //   if(fromDate !== null && toDate !== null){
+  //   isWithinInterval(
+  //   new Date(2014, 0, 8),
+  //   { start: fromDate, end: toDate }
+  // );
+  //   }
 
-  const handleSearch = (e: any) => {
-    setSearch(e.target.value);
-  };
-
-  let ArrayAfterSearch = data.filter(
-    (item) =>
-      item.name.toLowerCase().includes(search.toLowerCase()) ||
-      item.code.toLowerCase().includes(search.toLowerCase())
-  );
-  const arrayAfterDateFilter = () => {
-   
-  };
-  const handleChangePage = (e: any, newPage: number) => {
-    setPage(newPage);
-  };
-  const handleChangeRowsPerPage = (e: any) => {
-    setRowsPerPage(parseInt(e.target.value, 10));
-    setPage(0);
-  };
+  const classes = useStyles();
 
   return (
     <Container>
@@ -261,10 +221,7 @@ export default function ProductList() {
           </TableHead>
 
           <TableBody>
-            {ArrayAfterSearch.slice(
-              page * rowsPerPage,
-              page * rowsPerPage + rowsPerPage
-            ).map((row, i) => (
+            {ArrayAfterSortAndSliceAndFilter.map((row, i) => (
               <TableRow
                 key={row.id}
                 className={i % 2 !== 0 ? classes.rowStyle : ""}
@@ -329,7 +286,7 @@ export default function ProductList() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={ArrayAfterSearch.length}
+          count={ArrayAfterSortAndSliceAndFilter.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
