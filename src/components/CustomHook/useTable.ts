@@ -57,3 +57,6 @@ const useTable = <T extends object>(data: T[], searchBy: Array<keyof T>) => {
   };
 };
 export default useTable;
+
+// item.code.toLowerCase().includes(search.toLowerCase())
+// Object.keys(item)[1].toLowerCase().includes(search.toLowerCase())
