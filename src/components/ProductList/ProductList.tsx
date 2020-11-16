@@ -25,7 +25,6 @@ import TablePagination from "@material-ui/core/TablePagination";
 import DateFilter from "../DateFilter/DateFilter";
 import { TypeData } from "../Function/FilterDateFunction";
 import DescriptionIcon from "@material-ui/icons/Description";
-// import { FilterDateFunction } from "../Function/FilterDateFunction";
 import useTable from "../CustomHook/useTable";
 export const useStyles = makeStyles((theme) => ({
   table: {
@@ -63,11 +62,11 @@ export const useStyles = makeStyles((theme) => ({
     margin: "0 10px",
   },
 }));
-
 export default function ProductList() {
   const [data, setData] = useState<TypeData[]>([]);
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState(-1);
+
   React.useEffect(() => {
     fetch("http://localhost:8000/Products")
       .then((res) => res.json())
@@ -77,14 +76,14 @@ export default function ProductList() {
   const {
     handleChangeRowsPerPage,
     handleChangePage,
-    handleSearch,
     handleSort,
+    handleSearch,
     order,
     orderBy,
     page,
     rowsPerPage,
-    ArrayAfterSortAndSliceAndFilter,
-  } = useTable(data);
+    ArrayAfterSortAndSliceAndSearch,
+  } = useTable(data, ["name", "code" , "category" , "price" , "tax"]);
 
   const deleteRow = () => {
     return new Promise((resolve) => setTimeout(() => resolve(true), 500));
@@ -108,17 +107,9 @@ export default function ProductList() {
     setOpen(false);
   };
 
-  // console.log(fromDate + " " + toDate)
-
-  //   if(fromDate !== null && toDate !== null){
-  //   isWithinInterval(
-  //   new Date(2014, 0, 8),
-  //   { start: fromDate, end: toDate }
-  // );
-  //   }
-
-  const classes = useStyles();
   
+  const classes = useStyles();
+
   return (
     <Container>
       <TableContainer component={Paper} className={classes.paper}>
@@ -129,9 +120,6 @@ export default function ProductList() {
           </Button>
 
           <TextField
-            // size="small"
-            // label="search by category name"
-            // variant="outlined"
             placeholder="Search"
             InputProps={{
               startAdornment: (
@@ -217,7 +205,7 @@ export default function ProductList() {
           </TableHead>
 
           <TableBody>
-            {ArrayAfterSortAndSliceAndFilter.map((row, i) => (
+            {ArrayAfterSortAndSliceAndSearch.map((row, i) => (
               <TableRow
                 key={row.id}
                 className={i % 2 !== 0 ? classes.rowStyle : ""}

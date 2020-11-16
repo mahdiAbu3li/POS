@@ -24,6 +24,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import TablePagination from "@material-ui/core/TablePagination";
 import AddCategoryForm from "../AddCategoryForm/AddCategoryForm";
 import AddIcon from "@material-ui/icons/Add";
+import useTable from "../CustomHook/useTable";
 // import {
 //   sortStringAndNumericArray,
 //   sortDateArray,
@@ -59,14 +60,25 @@ export default function BasicTable() {
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState(-1);
   const [data, setData] = useState<TypeData[]>([]);
-  const [order, setOrder] = useState<"asc" | "desc">("asc");
-  const [orderBy, setOrderBy] = useState<keyof TypeData>("category_name");
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  // const [order, setOrder] = useState<"asc" | "desc">("asc");
+  // const [orderBy, setOrderBy] = useState<keyof TypeData>("category_name");
+  // const [search, setSearch] = useState("");
+  // const [page, setPage] = useState(0);
+  // const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [titleForm, setTitleForm] = useState("");
 
+  const {
+    handleChangeRowsPerPage,
+    handleChangePage,
+    handleSort,
+    handleSearch,
+    order,
+    orderBy,
+    page,
+    rowsPerPage,
+    ArrayAfterSortAndSliceAndSearch,
+  } = useTable(data, ["category_name"]);
   const classes = useStyles();
 
   React.useEffect(() => {
@@ -95,31 +107,7 @@ export default function BasicTable() {
     });
     setOpen(false);
   };
-  const sortedAndFilteredArray = data.filter((item) =>
-    item.category_name.includes(search)
-  );
 
-  const handleSort = (name: keyof TypeData) => {
-    const isAsc = orderBy === name && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(name);
-  };
-
-  const handleSearch = (e: any) => {
-    setSearch(e.target.value);
-  };
-
-  const filteredArray = data.filter((item) =>
-    item.category_name.includes(search)
-  );
-
-  const handleChangePage = (e: any, newPage: number) => {
-    setPage(newPage);
-  };
-  const handleChangeRowsPerPage = (e: any) => {
-    setRowsPerPage(parseInt(e.target.value, 10));
-    setPage(0);
-  };
   const handleAddCategory = () => {
     setTitleForm("Add Category");
     setOpenDialog(true);
@@ -188,36 +176,37 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {sortedAndFilteredArray
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, i) => (
-                <TableRow
-                  key={row.id}
-                  className={i % 2 !== 0 ? classes.rowStyle : ""}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.category_name}
-                  </TableCell>
-                  <TableCell align="left">{row.created_at}</TableCell>
-                  <TableCell align="left">
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        setButtonId(row.id);
-                        handleDeleteOpen();
-                      }}
-                    >
-                      <DeleteIcon />
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      onClick={() => handleEditCategory(row.id)}
-                    >
-                      <EditIcon />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+            {ArrayAfterSortAndSliceAndSearch.slice(
+              page * rowsPerPage,
+              page * rowsPerPage + rowsPerPage
+            ).map((row, i) => (
+              <TableRow
+                key={row.id}
+                className={i % 2 !== 0 ? classes.rowStyle : ""}
+              >
+                <TableCell component="th" scope="row">
+                  {row.category_name}
+                </TableCell>
+                <TableCell align="left">{row.created_at}</TableCell>
+                <TableCell align="left">
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      setButtonId(row.id);
+                      handleDeleteOpen();
+                    }}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleEditCategory(row.id)}
+                  >
+                    <EditIcon />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
 
             <Dialog
               open={open}
@@ -250,7 +239,7 @@ export default function BasicTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={filteredArray.length}
+          count={ArrayAfterSortAndSliceAndSearch.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

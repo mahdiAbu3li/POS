@@ -1,19 +1,14 @@
 import { useState } from "react";
-import { TypeData } from "../Function/FilterDateFunction";
-import {
-  sortStringAndNumericArray,
-  sortDateArray,
-} from "../Function/sortArray";
-type orderType = Omit<TypeData, "id">;
+import { sortArray } from "../Function/sortArray";
 
-const useTable = (data: TypeData[]) => {
+const useTable = <T extends object>(data: T[], searchBy: Array<keyof T>) => {
   const [order, setOrder] = useState<"asc" | "desc">("asc");
-  const [orderBy, setOrderBy] = useState<keyof orderType>("name");
+  const [orderBy, setOrderBy] = useState<keyof T | "">("");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleSort = (name: keyof orderType) => {
+  const handleSort = (name: keyof T) => {
     const isAsc = orderBy === name && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(name);
@@ -22,22 +17,29 @@ const useTable = (data: TypeData[]) => {
   const handleSearch = (e: any) => {
     setSearch(e.target.value);
   };
-  const ArrayAfterSortAndSliceAndFilter =
-    orderBy === "expiration_date"
-      ? sortDateArray(data, orderBy, order)
+    const array =  orderBy !== "" && orderBy !== undefined
+    ? sortArray(data, orderBy, order)
+      :data
+
+      const ArrayAfterSortAndSliceAndSearch =
+          array
           .filter(
-            (item: TypeData) =>
-              item.name.toLowerCase().includes(search.toLowerCase()) ||
-              item.code.toLowerCase().includes(search.toLowerCase())
+            (item) =>{
+              // console.log(item[searchBy[0]] + " mahdi")   
+             return searchBy.some((item1) => {
+                const x = item[item1];                
+                if(typeof x === "string"){
+                  return x.toLowerCase().includes(search.toLowerCase()) 
+                }else if(typeof x === "number"){
+                  return x === parseInt(search , 10)
+                }else{
+                    return true
+                  }                                         
+              })
+            }
           )
           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-      : sortStringAndNumericArray(data, orderBy, order)
-          .filter(
-            (item: TypeData) =>
-              item.name.toLowerCase().includes(search.toLowerCase()) ||
-              item.code.toLowerCase().includes(search.toLowerCase())
-          )
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+     
 
   const handleChangePage = (e: any, newPage: number) => {
     setPage(newPage);
@@ -55,7 +57,10 @@ const useTable = (data: TypeData[]) => {
     rowsPerPage,
     order,
     orderBy,
-    ArrayAfterSortAndSliceAndFilter,
+    ArrayAfterSortAndSliceAndSearch,
   };
 };
 export default useTable;
+
+// item.code.toLowerCase().includes(search.toLowerCase())
+// Object.keys(item)[1].toLowerCase().includes(search.toLowerCase())
