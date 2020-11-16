@@ -25,9 +25,12 @@ import TablePagination from "@material-ui/core/TablePagination";
 import AddCategoryForm from "../AddCategoryForm/AddCategoryForm";
 import AddIcon from "@material-ui/icons/Add";
 import {
-  sortStringAndNumericArray,
-  sortDateArray,
+ sortArray
 } from "../Function/sortArray";
+// import {
+//   sortStringAndNumericArray,
+//   sortDateArray,
+// } from "../Function/sortArray";
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -97,9 +100,10 @@ export default function BasicTable() {
   };
 
   const sortedAndFilteredArray =
-    orderBy === "created_at"
-      ? sortDateArray(data, orderBy, order)
-      : sortStringAndNumericArray(data, orderBy, order)
+    // orderBy === "created_at"
+    //   ? sortDateArray(data, orderBy, order)
+    //   : sortStringAndNumericArray(data, orderBy, order)
+    sortArray(data , orderBy , order)
       .filter((item) =>
           item.category_name.includes(search)
         );
@@ -108,6 +112,7 @@ export default function BasicTable() {
     const isAsc = orderBy === name && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(name);
+   
   };
 
   const handleSearch = (e: any) => {
