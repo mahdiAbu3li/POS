@@ -7,6 +7,16 @@ const useTable = <T extends object>(data: T[], searchBy: Array<keyof T>) => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [filters, setFilters] = useState<Record<string, (data: T[]) => T[]>>(
+    {}
+  );
+
+  const applyFilter = (key: string, fn: (data: T[]) => T[]) => {
+    setFilters((f) => ({
+      ...f,
+      [key]: fn,
+    }));
+  };
 
   const handleSort = (name: keyof T) => {
     const isAsc = orderBy === name && order === "asc";
@@ -22,7 +32,12 @@ const useTable = <T extends object>(data: T[], searchBy: Array<keyof T>) => {
       ? sortArray(data, orderBy, order)
       : data;
 
-  const ArrayAfterSortAndSliceAndSearch = array
+  const filteredArray = Object.values(filters).reduce(
+    (filteredRows = data, fn) => fn(filteredRows),
+    array
+  );
+
+  const ArrayAfterSortAndSliceAndSearch = filteredArray
     .filter((item) => {
       return searchBy.some((item1) => {
         const x = item[item1];
@@ -49,6 +64,7 @@ const useTable = <T extends object>(data: T[], searchBy: Array<keyof T>) => {
     handleChangePage,
     handleSearch,
     handleSort,
+    applyFilter,
     page,
     rowsPerPage,
     order,
@@ -57,4 +73,3 @@ const useTable = <T extends object>(data: T[], searchBy: Array<keyof T>) => {
   };
 };
 export default useTable;
-

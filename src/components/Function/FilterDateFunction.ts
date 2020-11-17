@@ -16,7 +16,7 @@ export const FilterDateFunction = (
   data: TypeData[],
   fromDate: TypeDate,
   toDate: TypeDate
-) => {
+):TypeData[] => {
   if (fromDate !== null && toDate !== null) {
     return data.filter((i) =>
       isWithinInterval(parse(i.expiration_date, "dd/MM/yyyy", new Date()), {
@@ -24,5 +24,8 @@ export const FilterDateFunction = (
         end: toDate,
       })
     );
+  }
+  else {
+    return data;
   }
 };

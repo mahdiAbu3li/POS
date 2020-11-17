@@ -23,9 +23,10 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import TablePagination from "@material-ui/core/TablePagination";
 import DateFilter from "../DateFilter/DateFilter";
-import { TypeData } from "../Function/FilterDateFunction";
+import { FilterDateFunction, TypeData } from "../Function/FilterDateFunction";
 import DescriptionIcon from "@material-ui/icons/Description";
 import useTable from "../CustomHook/useTable";
+type TypeDate = Date | null;
 export const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -41,7 +42,7 @@ export const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
   toolBar: {
-    display: "flext",
+    display: "flex",
     justifyContent: "space-between",
   },
   rowStyle: {
@@ -78,18 +79,21 @@ export default function ProductList() {
     handleChangePage,
     handleSort,
     handleSearch,
+    applyFilter,
     order,
     orderBy,
     page,
     rowsPerPage,
     ArrayAfterSortAndSliceAndSearch,
-  } = useTable(data, ["name", "code" , "category" , "price" , "tax"]);
+  } = useTable(data, ["name", "code", "category", "price", "tax"]);
 
   const deleteRow = () => {
     return new Promise((resolve) => setTimeout(() => resolve(true), 500));
   };
+  const arrayAfterDateFilter = (fromDate: TypeDate, toDate: TypeDate) => {
+    applyFilter("date", (data) => FilterDateFunction(data, fromDate, toDate));
+  };
 
-  const arrayAfterDateFilter = () => {};
   const handleDeleteOpen = () => {
     setOpen(true);
   };
@@ -107,13 +111,16 @@ export default function ProductList() {
     setOpen(false);
   };
 
-  
   const classes = useStyles();
 
   return (
     <Container>
       <TableContainer component={Paper} className={classes.paper}>
-        <DateFilter onChange={arrayAfterDateFilter} />
+        <DateFilter
+          onChange={(fromDate, toDate) => {
+            arrayAfterDateFilter(fromDate, toDate);
+          }}
+        />
         <Toolbar className={classes.toolBar}>
           <Button color="primary" variant="contained">
             Add Product

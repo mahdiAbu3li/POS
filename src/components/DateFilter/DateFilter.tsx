@@ -6,22 +6,32 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import { Toolbar, Button } from "@material-ui/core";
 import { useStyles } from "../ProductList/ProductList";
+type FromAndTo = Date | null;
 interface TypeOnChange {
-  onChange: () => void;
+  onChange: (fromDate: FromAndTo, toDate: FromAndTo) => void;
 }
+interface TypeFromTo {
+  fromDate: FromAndTo;
+  toDate: FromAndTo;
+}
+
 function DateFilter({ onChange }: TypeOnChange) {
+
   const [fromDate, setFromDate] = React.useState<Date | null>(new Date());
   const [toDate, setToDate] = React.useState<Date | null>(new Date());
   const classes = useStyles();
+
   const handleFromDate = (date: Date | null) => {
     setFromDate(date);
   };
   const handleToDate = (date: Date | null) => {
     setToDate(date);
   };
-  const handleApplyFilter = () => {
-    onChange();
+
+  const handleApplyFilter = ({ fromDate, toDate }: TypeFromTo) => {
+    onChange(fromDate, toDate);
   };
+  
   return (
     <div>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -31,7 +41,7 @@ function DateFilter({ onChange }: TypeOnChange) {
             className={classes.datePicker}
             disableToolbar
             variant="inline"
-            format="MM/dd/yyyy"
+            format="dd/MM/yyyy"
             margin="normal"
             id="date-picker-inline"
             label="From"
@@ -45,7 +55,7 @@ function DateFilter({ onChange }: TypeOnChange) {
             className={classes.datePicker}
             disableToolbar
             variant="inline"
-            format="MM/dd/yyyy"
+            format="dd/MM/yyyy"
             margin="normal"
             id="date-picker-inline"
             label="To"
@@ -55,7 +65,7 @@ function DateFilter({ onChange }: TypeOnChange) {
               "aria-label": "change date",
             }}
           />
-          <Button variant="outlined" onClick={handleApplyFilter}>
+          <Button variant="outlined" onClick={() => handleApplyFilter({fromDate , toDate})}>
             Apply Filter
           </Button>
         </Toolbar>
