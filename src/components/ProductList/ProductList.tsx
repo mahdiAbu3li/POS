@@ -26,6 +26,7 @@ import DateFilter from "../DateFilter/DateFilter";
 import { FilterDateFunction, TypeData } from "../Function/FilterDateFunction";
 import DescriptionIcon from "@material-ui/icons/Description";
 import useTable from "../CustomHook/useTable";
+import ProductForm from "../ProductForm/ProductForm";
 type TypeDate = Date | null;
 export const useStyles = makeStyles((theme) => ({
   table: {
@@ -67,7 +68,8 @@ export default function ProductList() {
   const [data, setData] = useState<TypeData[]>([]);
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState(-1);
-
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [titleForm, setTitleForm] = useState("");
   React.useEffect(() => {
     fetch("http://localhost:8000/Products")
       .then((res) => res.json())
@@ -111,10 +113,19 @@ export default function ProductList() {
     setOpen(false);
   };
 
+  const handleOpenProductForm = () => {
+    setOpenDialog(true);
+    setTitleForm("Add Product");
+  };
   const classes = useStyles();
 
   return (
     <Container>
+      <ProductForm
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
+        title={titleForm}
+      />
       <TableContainer component={Paper} className={classes.paper}>
         <DateFilter
           onChange={(fromDate, toDate) => {
@@ -122,7 +133,11 @@ export default function ProductList() {
           }}
         />
         <Toolbar className={classes.toolBar}>
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleOpenProductForm}
+          >
             Add Product
           </Button>
 
