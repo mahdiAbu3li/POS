@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -25,28 +24,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import AddCategoryForm from "../AddCategoryForm/AddCategoryForm";
 import AddIcon from "@material-ui/icons/Add";
 import useTable from "../CustomHook/useTable";
-const useStyles = makeStyles((theme) => ({
-  table: {
-    minWidth: 650,
-  },
-  paper: {
-    width: "55%",
-  },
-  buttonAction: {
-    backgroundColor: "white",
-  },
-  tableHeader: {
-    backgroundColor: theme.palette.primary.main,
-    color: "#fff",
-  },
-  toolBar: {
-    display: "flext",
-    justifyContent: "space-between",
-  },
-  rowStyle: {
-    backgroundColor: "#FFECB3",
-  },
-}));
+import {useStyles}  from "../CategoryList/CategoryListStyle"
 interface TypeData {
   id: number;
   category_name: string;
@@ -167,10 +145,7 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {ArrayAfterSortAndSliceAndSearch.slice(
-              page * rowsPerPage,
-              page * rowsPerPage + rowsPerPage
-            ).map((row, i) => (
+            {ArrayAfterSortAndSliceAndSearch.map((row, i) => (
               <TableRow
                 key={row.id}
                 className={i % 2 !== 0 ? classes.rowStyle : ""}
