@@ -1,26 +1,121 @@
 {
-  "users": [
-    {
-      "id": "1",
-      "user_name": "mahdi",
-      "password": "1234"
-    },
-    {
-      "id": "2",
-      "user_name": "abd",
-      "password": "0000"
-    },
-    {
-      "id": "3",
-      "user_name": "ahmad",
-      "password": "1111"
-    },
-    {
-      "id": "4",
-      "user_name": "ali",
-      "password": "1010"
-    }
+    
+  "users" :[
+      {
+          "id":"1",
+          "user_name":"mahdi",
+          "password":"1234"
+      },
+      {
+          "id":"2",
+          "user_name":"admin",
+          "password":"1234"
+      },
+      {
+          "id":"3",
+          "user_name":"ahmad",
+          "password":"1111"
+      },
+      {
+          "id":"4",
+          "user_name":"ali",
+          "password":"1010"
+      }
   ],
+  "Products":[
+      {
+          "id":1,
+          "code":"123",
+          "name":"shocha",
+          "category":"roz",
+          "product_description":"qalqilia",
+          "tax":20,
+          "price":25,
+          "expiration_date":"28/5/2019"
+        
+          
+        },
+        {
+            "id":2,
+            "code":"A25",
+            "name":"cola",
+            "category":"drinks",
+            "product_description":"nablus",
+            "tax":30,
+            "price":5,
+            "expiration_date":"03/4/2022"
+        },
+        {
+          "id":3,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"08/12/2020"
+        },
+        {
+          "id":4,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"08/12/2020"
+        },
+        {
+          "id":5,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"08/12/2020"
+        },
+        {
+          "id":6,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"08/12/2020"
+        },
+        {
+          "id":7,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"08/12/2020"
+        },
+        {
+          "id":8,
+          "code":"C265",
+          "name":"milk",
+          "category":"drink",
+          "product_description":"jenin",
+          "tax":20,
+          "price":25,
+          "expiration_date":"08/12/2020"
+        },
+        {
+          "id":9,
+          "code":"B121",
+          "name":"twix",
+          "category":"chocolate",
+          "product_description":"paris",
+          "tax":10,
+          "price":2.5,
+          "expiration_date":"01/11/2021"
+      }],
+  
   "categories": [
     {
       "id": 1,
@@ -40,37 +135,37 @@
     {
       "id": 4,
       "category_name": "chair",
-      "created_at": "8-12-2020"
+      "created_at": "08-12-2020"
     },
     {
       "id": 5,
       "category_name": "books",
-      "created_at": "6-12-2020"
+      "created_at": "06-12-2020"
     },
     {
       "id": 6,
       "category_name": "pens",
-      "created_at": "4-12-2020"
+      "created_at": "04-12-2020"
     },
     {
       "id": 7,
       "category_name": "food",
-      "created_at": "1-12-2020"
+      "created_at": "01-12-2020"
     },
     {
       "id": 8,
       "category_name": "drinks",
-      "created_at": "2-12-2020"
+      "created_at": "02-12-2020"
     },
     {
       "id": 9,
       "category_name": "cola",
-      "created_at": "9-12-2020"
+      "created_at": "09-12-2020"
     },
     {
       "id": 10,
       "category_name": "fish",
-      "created_at": "3-12-2020"
+      "created_at": "03-12-2020"
     }
   ]
 }

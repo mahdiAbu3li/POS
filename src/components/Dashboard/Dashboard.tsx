@@ -1,15 +1,17 @@
 import React from "react";
 import AppHeader from "../AppHeader/AppHeader";
-import CatagoryList from "../CatagoryList/CatagoryList";
+import CatagoryList from "../CategoryList/CategoryList";
+import ProductList from "../ProductList/ProductList";
 interface logoutType {
-  onLogout: () => void
+  onLogout: () => void;
 }
-function Dashboard({onLogout}:logoutType) {
+function Dashboard({ onLogout }: logoutType) {
   return (
     <div>
-      <AppHeader onLogout={onLogout}/>
+      <AppHeader onLogout={onLogout} />
       <h1>Dashboard</h1>
       <CatagoryList />
+      <ProductList />
     </div>
   );
 }
