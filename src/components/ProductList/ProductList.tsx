@@ -78,9 +78,9 @@ export default function ProductList() {
     setOpen(false);
   };
 
-  const handleOpenProductForm = () => {
+  const handleOpenProductForm = (title: string) => {
     setOpenDialog(true);
-    setTitleForm("Add Product");
+    setTitleForm(title);
   };
   const classes = useStyles();
 
@@ -101,7 +101,7 @@ export default function ProductList() {
           <Button
             color="primary"
             variant="contained"
-            onClick={handleOpenProductForm}
+            onClick={() => handleOpenProductForm("Add Product")}
           >
             Add Product
           </Button>
@@ -216,7 +216,7 @@ export default function ProductList() {
                   >
                     <DeleteIcon />
                   </Button>
-                  <Button variant="outlined">
+                  <Button variant="outlined"   onClick={() => handleOpenProductForm("Edit Product")}>
                     <EditIcon />
                   </Button>
                   <Button variant="outlined">
