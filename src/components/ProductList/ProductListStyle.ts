@@ -34,5 +34,6 @@ export const useStyles = makeStyles((theme) => ({
       width: "140px",
       fontSize: "10px",
       margin: "0 10px",
+      
     },
   }));
