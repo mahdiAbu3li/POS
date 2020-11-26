@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { TextField } from "formik-material-ui";
 import Box from "@material-ui/core/Box";
@@ -31,9 +31,19 @@ interface Values {
   stockCount: string;
   expDate: string;
 }
+interface Categories {
+  category_name: string;
+  created_at: string;
+}
 export default function ProductForm(props: TypeProps) {
   const { openDialog, setOpenDialog, title } = props;
+  const [categories, setCategories] = useState<Categories[]>([]);
 
+  React.useEffect(() => {
+    fetch("http://localhost:8000/categories")
+      .then((res) => res.json())
+      .then((data) => setCategories(data));
+  }, []);
   const handleClose = () => {
     setOpenDialog(false);
   };
@@ -199,9 +209,11 @@ export default function ProductForm(props: TypeProps) {
                       select
                       fullWidth
                     >
-                      <MenuItem value={"c1"}>category 1</MenuItem>
-                      <MenuItem value={"c2"}>category 2</MenuItem>
-                      <MenuItem value={"c3"}>category 3</MenuItem>
+                      {categories.map((item) => (
+                        <MenuItem value={item.category_name}>
+                          {item.category_name}
+                        </MenuItem>
+                      ))}
                     </Field>
                   </Box>
                   <Box margin={2}>
