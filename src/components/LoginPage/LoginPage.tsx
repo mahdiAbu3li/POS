@@ -18,7 +18,7 @@ function LoginPage({ onLogin }: LoginFormType) {
           <h1>Mahdi &nbsp; Shop</h1>
           <img
             src={require("../../images/7.png")}
-            style={{ width: "55vw", marginTop: "4rem" }}
+            style={{ width: "50vw"}}
             alt=""
           />
         </div>

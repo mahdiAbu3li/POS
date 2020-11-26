@@ -85,7 +85,7 @@ export default function ProductList() {
   const classes = useStyles();
 
   return (
-    <Container>
+    <Container className={classes.container}>
       <ProductForm
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
@@ -195,7 +195,7 @@ export default function ProductList() {
             {ArrayAfterSortAndSliceAndSearch.map((row, i) => (
               <TableRow
                 key={row.id}
-                className={i % 2 !== 0 ? classes.rowStyle : ""}
+               
               >
                 <TableCell component="th" scope="row">
                   {row.code}

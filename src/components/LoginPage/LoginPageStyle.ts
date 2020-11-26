@@ -31,8 +31,9 @@ export const useStyles = makeStyles((theme) => ({
     color: "#673ab7",
     fontFamily: '"Sansita Swashed", cursive',
     "& h1": {
-      fontSize: "4.5vw",
+      fontSize: "4rem",
       fontFamily: '"Sansita Swashed", cursive',
+      width: "30rem",
     },
   },
   containerRightPanel: {
@@ -42,11 +43,11 @@ export const useStyles = makeStyles((theme) => ({
     justifyItems: "center",
   },
   containerRightPanelPaper: {
-    width: "15rem",
-    height: "20rem",
+    width: "25vw",
+    height: "60vh",
     zIndex: 55,
     margin: "1rem",
-    marginTop: "8rem",
+    marginTop: "20vh",
   },
   "@media only screen and (max-width: 600px)": {
     containerLeftPanel: {
@@ -57,6 +58,9 @@ export const useStyles = makeStyles((theme) => ({
     containerBackground: {
       clipPath: "circle(58.4% at 48% 4%)",
     },
+    containerRightPanelPaper:{
+      width:"60vw"
+    }
   },
   "@media only screen and (min-width: 600px)": {
     containerLeftPanel: {
@@ -68,6 +72,7 @@ export const useStyles = makeStyles((theme) => ({
           "polygon(50% 0%,73% 0,39% 40%,% 73%,26% 107%,0 100%,0% 70%, 35%,0 0)",
       },
     },
+   
   },
   "@media only screen and (min-width: 768px)": {
     containerLeftPanel: {
@@ -85,7 +90,7 @@ export const useStyles = makeStyles((theme) => ({
         display: "block",
       },
       "& h1": {
-        margin: "5rem 10rem 0",
+        margin: "5rem 5rem 0",
       },
       width: "50%",
       display: "flex",
@@ -105,5 +110,13 @@ export const useStyles = makeStyles((theme) => ({
     containerBackground: {
       clipPath: "circle(60% at 6% 5%)",
     },
+    
   },
+  "@media only screen and (min-width: 1300px)": {
+    containerLeftPanel: {
+      "& h1": {
+        margin: "5rem 10rem 0",
+      },
+    },
+  }
 }));
