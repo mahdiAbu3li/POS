@@ -87,8 +87,8 @@ export default function ProductList() {
   return (
     <Container className={classes.container}>
       <ProductForm
-        openDialog={openDialog}
-        setOpenDialog={setOpenDialog}
+        IsOpenDialog={openDialog}
+        setCloseDialog={() => setOpenDialog(false)}
         title={titleForm}
       />
       <TableContainer component={Paper} className={classes.paper}>
@@ -193,10 +193,7 @@ export default function ProductList() {
 
           <TableBody>
             {ArrayAfterSortAndSliceAndSearch.map((row, i) => (
-              <TableRow
-                key={row.id}
-               
-              >
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.code}
                 </TableCell>
@@ -216,7 +213,10 @@ export default function ProductList() {
                   >
                     <DeleteIcon />
                   </Button>
-                  <Button variant="outlined"   onClick={() => handleOpenProductForm("Edit Product")}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleOpenProductForm("Edit Product")}
+                  >
                     <EditIcon />
                   </Button>
                   <Button variant="outlined">

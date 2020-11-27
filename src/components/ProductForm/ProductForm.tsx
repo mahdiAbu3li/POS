@@ -16,8 +16,8 @@ import { Formik, Form, Field } from "formik";
 import { DatePicker } from "formik-material-ui-pickers";
 
 interface TypeProps {
-  openDialog: boolean;
-  setOpenDialog: (a: boolean) => void;
+  IsOpenDialog: boolean;
+  setCloseDialog: () => void;
   title: string;
 }
 interface Values {
@@ -36,7 +36,7 @@ interface Categories {
   created_at: string;
 }
 export default function ProductForm(props: TypeProps) {
-  const { openDialog, setOpenDialog, title } = props;
+  const { IsOpenDialog, title, setCloseDialog } = props;
   const [categories, setCategories] = useState<Categories[]>([]);
 
   React.useEffect(() => {
@@ -44,9 +44,7 @@ export default function ProductForm(props: TypeProps) {
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
+
   const id = Math.random();
   const initialValue = {
     id: id,
@@ -96,8 +94,8 @@ export default function ProductForm(props: TypeProps) {
         >
           {({ submitForm, isSubmitting, touched, errors, setFieldValue }) => (
             <Dialog
-              open={openDialog}
-              onClose={handleClose}
+              open={IsOpenDialog}
+              onClose={setCloseDialog}
               aria-labelledby="form-dialog-title"
               fullWidth={true}
               maxWidth="sm"
@@ -249,7 +247,7 @@ export default function ProductForm(props: TypeProps) {
                 {isSubmitting && <LinearProgress />}
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose} color="primary">
+                <Button onClick={setCloseDialog} color="primary">
                   Cancel
                 </Button>
                 <Button onClick={submitForm} color="primary">
