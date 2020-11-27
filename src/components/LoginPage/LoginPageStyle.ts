@@ -22,13 +22,15 @@ export const useStyles = makeStyles((theme) => ({
     height: "100%",
     zIndex: 1,
     position: "absolute",
-    background: "linear-gradient(-10deg, rgb(251, 255, 0), #f58621)",
+    // background: "linear-gradient(-10deg, rgb(251, 255, 0), #f58621)",
+    background: "linear-gradient(21deg, #1565C8 30%, #283593  50%)",
     clipPath:
       "polygon( 50% 0%, 100% 0, 70% 40%, 69% 73%,26% 82%,0 100%,0% 70%,0% 35%,0 0)",
   },
   containerLeftPanel: {
     zIndex: 11,
-    color: "#673ab7",
+    // color: "#673ab7",
+    color: "#fff",
     fontFamily: '"Sansita Swashed", cursive',
     "& h1": {
       fontSize: "4rem",

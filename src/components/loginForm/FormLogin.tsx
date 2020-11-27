@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
   },
   button: {
-    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    background: "linear-gradient(45deg, #283593 30%, #64b5f6 90%)",    
     color: "#fff",
   },
   container: {
-    height: "400px",
+    height: "20rem",
   },
   layout: {
     display: "flex",

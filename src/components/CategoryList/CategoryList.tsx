@@ -24,7 +24,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import AddCategoryForm from "../AddCategoryForm/AddCategoryForm";
 import AddIcon from "@material-ui/icons/Add";
 import useTable from "../CustomHook/useTable";
-import {useStyles}  from "../CategoryList/CategoryListStyle"
+import { useStyles } from "../CategoryList/CategoryListStyle";
 interface TypeData {
   id: number;
   category_name: string;
@@ -98,7 +98,7 @@ export default function BasicTable() {
         <Toolbar className={classes.toolBar}>
           <Button
             color="primary"
-            variant="outlined"
+            variant="contained"
             onClick={handleAddCategory}
             startIcon={<AddIcon />}
           >
@@ -115,18 +115,20 @@ export default function BasicTable() {
               ),
             }}
             onChange={handleSearch}
+            className={classes.search}
           />
         </Toolbar>
         <Table className={classes.table} aria-label="simple table">
           <TableHead className={classes.tableHeader}>
-            <TableRow>
-              <TableCell>
+            <TableRow className={classes.tableRow}>
+              <TableCell >
                 <TableSortLabel
                   active={orderBy === "category_name"}
                   direction={orderBy === "category_name" ? order : "asc"}
                   onClick={() => {
                     handleSort("category_name");
                   }}
+                  
                 >
                   Category Name
                 </TableSortLabel>
@@ -146,10 +148,7 @@ export default function BasicTable() {
           </TableHead>
           <TableBody>
             {ArrayAfterSortAndSliceAndSearch.map((row, i) => (
-              <TableRow
-                key={row.id}
-               
-              >
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.category_name}
                 </TableCell>

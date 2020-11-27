@@ -31,8 +31,14 @@ export const useStyles = makeStyles((theme) => ({
     width: "140px",
     fontSize: "10px",
     margin: "0 10px",
-  },container:{
-    maxWidth:"70rem",
-    marginTop:"7rem"
-}
+  },
+  container: {
+    maxWidth: "70rem",
+    marginTop: "2rem",
+  },
+  tableRow: {
+    "& > *": {
+      color: "#fff",
+    },
+  },
 }));
