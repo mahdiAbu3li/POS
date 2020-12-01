@@ -100,9 +100,9 @@ export default function ProductForm(props: TypeProps) {
               fullWidth={true}
               maxWidth="sm"
             >
-              <DialogTitle id="form-dialog-title">{title}</DialogTitle>
-              <DialogContent>
-                <Form>
+              <Form>
+                <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+                <DialogContent>
                   <Box margin={2}>
                     <InputLabel id="name">Name</InputLabel>
                     <Field
@@ -243,17 +243,17 @@ export default function ProductForm(props: TypeProps) {
                       fullWidth
                     />
                   </Box>
-                </Form>
-                {isSubmitting && <LinearProgress />}
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={setCloseDialog} color="primary">
-                  Cancel
-                </Button>
-                <Button onClick={submitForm} color="primary">
-                  Submit
-                </Button>
-              </DialogActions>
+                  {isSubmitting && <LinearProgress />}
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={setCloseDialog} color="primary">
+                    Cancel
+                  </Button>
+                  <Button type="submit" color="primary">
+                    Submit
+                  </Button>
+                </DialogActions>
+              </Form>
             </Dialog>
           )}
         </Formik>

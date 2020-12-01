@@ -11,13 +11,13 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
   },
   tableHeader: {
-    backgroundColor: "#3f51b5",
-    color: "#fff",
+    backgroundColor: "#fff",
+    color: "#000",
   },
   toolBar: {
     display: "flex",
-    justifyContent: "space-between",
-   
+    justifyContent: "space-between",  
+    width:"55vw"
   },
   container: {
     maxWidth: "60vw",
@@ -25,7 +25,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   tableRow: {
     "& > *": {
-      color: "#fff",
+      color: "#000",
     },
   },
   search: {

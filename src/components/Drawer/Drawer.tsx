@@ -81,7 +81,7 @@ export default function ResponsiveDrawer(props: Props) {
           <ListItemText primary="Product" />
         </ListItem>
         <ListItem button onClick={handleClick}>
-          <ListItemIcon>
+          <ListItemIcon >
             <GroupIcon />
           </ListItemIcon>
           <ListItemText primary="People" />
