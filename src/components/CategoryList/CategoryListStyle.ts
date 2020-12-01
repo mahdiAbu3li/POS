@@ -31,7 +31,7 @@ export const useStyles = makeStyles((theme) => ({
   search: {
     width: "15vw",
   },
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.down("sm")]: {
     container: {
       maxWidth: "90vw",
     },
