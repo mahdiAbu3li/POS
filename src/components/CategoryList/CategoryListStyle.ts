@@ -31,7 +31,7 @@ export const useStyles = makeStyles((theme) => ({
   search: {
     width: "15vw",
   },
-  "@media only screen and (max-width: 600px)": {
+  [theme.breakpoints.up("sm")]: {
     container: {
       maxWidth: "90vw",
     },

@@ -165,8 +165,7 @@ export default function ResponsiveDrawer(props: Props) {
               </IconButton>
             </div>
             <div className={classes.rightList}>
-              <Avatar
-                // className={classes.avatar}
+              <Avatar                
                 src={require("../../images/mahdi.jpg")}
               ></Avatar>
               <Button

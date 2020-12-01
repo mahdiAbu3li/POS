@@ -121,8 +121,7 @@ function FormLogin({ onLogin }: LoginFormProps) {
                 <Grid item xs={12}>
                   <Button
                     variant="outlined"
-                    className={styles.button}
-                    // onClick={submitForm}
+                    className={styles.button}                    
                     type="submit"
                   >
                     Login
