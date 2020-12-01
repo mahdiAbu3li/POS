@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { TextField } from "formik-material-ui";
 import Button from "@material-ui/core/Button";
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   layout: {
     display: "flex",
-    flexDirection:"column",
+    flexDirection: "column",
     alignItems: "center",
   },
 }));
@@ -50,7 +50,6 @@ interface LoginFormProps {
 
 function FormLogin({ onLogin }: LoginFormProps) {
   const styles = useStyles();
-  
 
   return (
     <div>
@@ -61,7 +60,7 @@ function FormLogin({ onLogin }: LoginFormProps) {
         }}
         validate={(values) => {
           const errors: Partial<Values> = {};
-          if (values.userName === "") {            
+          if (values.userName === "") {
             errors.userName = "Required";
           }
           if (!values.password) {
@@ -69,14 +68,13 @@ function FormLogin({ onLogin }: LoginFormProps) {
           }
           return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {        
+        onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            setSubmitting(false);            
+            setSubmitting(false);
             validateLogin(values.userName, values.password).then((isValid) => {
               if (isValid) {
                 onLogin();
               } else {
-
               }
             });
           }, 2000);
@@ -84,7 +82,7 @@ function FormLogin({ onLogin }: LoginFormProps) {
       >
         {({ submitForm, isSubmitting, touched, errors, setFieldValue }) => (
           <div className={styles.layout}>
-              <Form>
+            <Form>
               <Grid container className={styles.container}>
                 <Grid item xs={12}>
                   <h3>Login to Your Account</h3>

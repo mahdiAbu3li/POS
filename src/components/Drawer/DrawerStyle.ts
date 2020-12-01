@@ -75,27 +75,23 @@ export const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(4),
     },
     lists: {
-                
-         
-          color:"#000",
-          "& > *":{
-            "& > *":{
-             color:"unset",
-                "& :hover": {
-                 color: "#283593",
-                },
-            }
-          }
-       
-     
+      color: "#000",
+      "& > *": {
+        "& > *": {
+          color: "unset",
+          "& :hover": {
+            color: "#283593",
+          },
+        },
+      },
     },
     corner: {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
     },
-    listIcon:{
-      color:"#000"
-    }
+    listIcon: {
+      color: "#000",
+    },
   })
 );
