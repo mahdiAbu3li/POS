@@ -14,6 +14,7 @@ import TurnedInIcon from "@material-ui/icons/TurnedIn";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Avatar from "@material-ui/core/Avatar";
 import { useStyles } from "./AppHeaderStyle";
+import { useHistory } from "react-router-dom";
 
 interface logoutType {
   onLogout: () => void;
@@ -38,6 +39,11 @@ const AppHeader = ({ onLogout }: logoutType) => {
   const handleLogout = () => {
     onLogout();
   };
+  const handleCloseCategory = () => {
+    setAnchorEl2(null);
+    history.push("/dashboard/categories");
+  };
+  const history = useHistory();
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.bar}>
@@ -59,6 +65,7 @@ const AppHeader = ({ onLogout }: logoutType) => {
                 color="inherit"
                 className={classes.barButton}
                 startIcon={<KitchenIcon />}
+                onClick={() => history.push("/dashboard/products")}
               >
                 Product
               </Button>
@@ -116,7 +123,7 @@ const AppHeader = ({ onLogout }: logoutType) => {
                 open={Boolean(anchorEl2)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Sales</MenuItem>
+                <MenuItem onClick={handleCloseCategory}>Sales</MenuItem>
                 <MenuItem onClick={handleClose}>Expense</MenuItem>
               </Menu>
 

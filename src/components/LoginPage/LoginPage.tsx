@@ -1,7 +1,7 @@
 import React from "react";
 import { Paper } from "@material-ui/core";
 
-import Form from "../loginForm/form";
+import FormLogin from "../loginForm/FormLogin";
 import { useStyles } from "./LoginPageStyle";
 
 interface LoginFormType {
@@ -18,7 +18,7 @@ function LoginPage({ onLogin }: LoginFormType) {
           <h1>Mahdi &nbsp; Shop</h1>
           <img
             src={require("../../images/7.png")}
-            style={{ width: "55vw", marginTop: "4rem" }}
+            style={{ width: "50vw"}}
             alt=""
           />
         </div>
@@ -28,7 +28,7 @@ function LoginPage({ onLogin }: LoginFormType) {
             classes={{ root: styles.root }}
             className={styles.containerRightPanelPaper}
           >
-            <Form onLogin={onLogin} />
+            <FormLogin onLogin={onLogin} />
           </Paper>
         </div>
       </div>

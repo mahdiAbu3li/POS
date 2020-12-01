@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme) => ({
       minWidth: 650,
     },
     paper: {
-      width: "55%",
+      width: "100%",
     },
     buttonAction: {
       backgroundColor: "white",
@@ -15,10 +15,10 @@ export const useStyles = makeStyles((theme) => ({
       color: "#fff",
     },
     toolBar: {
-      display: "flext",
+      display: "flex",
       justifyContent: "space-between",
-    },
-    rowStyle: {
-      backgroundColor: "#FFECB3",
-    },
+    },container:{
+      maxWidth:"60rem",
+      marginTop:"7rem"
+  }
   }));

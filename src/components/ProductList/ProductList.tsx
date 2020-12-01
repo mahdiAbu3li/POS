@@ -25,14 +25,16 @@ import DateFilter from "../DateFilter/DateFilter";
 import { FilterDateFunction, TypeData } from "../Function/FilterDateFunction";
 import DescriptionIcon from "@material-ui/icons/Description";
 import useTable from "../CustomHook/useTable";
-import {useStyles} from "./ProductListStyle"
+import ProductForm from "../ProductForm/ProductForm";
+import { useStyles } from "./ProductListStyle";
 type TypeDate = Date | null;
 
 export default function ProductList() {
   const [data, setData] = useState<TypeData[]>([]);
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState(-1);
-
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [titleForm, setTitleForm] = useState("");
   React.useEffect(() => {
     fetch("http://localhost:8000/Products")
       .then((res) => res.json())
@@ -76,10 +78,19 @@ export default function ProductList() {
     setOpen(false);
   };
 
+  const handleOpenProductForm = (title: string) => {
+    setOpenDialog(true);
+    setTitleForm(title);
+  };
   const classes = useStyles();
 
   return (
-    <Container>
+    <Container className={classes.container}>
+      <ProductForm
+        IsOpenDialog={openDialog}
+        setCloseDialog={() => setOpenDialog(false)}
+        title={titleForm}
+      />
       <TableContainer component={Paper} className={classes.paper}>
         <DateFilter
           onChange={(fromDate, toDate) => {
@@ -87,7 +98,11 @@ export default function ProductList() {
           }}
         />
         <Toolbar className={classes.toolBar}>
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => handleOpenProductForm("Add Product")}
+          >
             Add Product
           </Button>
 
@@ -178,10 +193,7 @@ export default function ProductList() {
 
           <TableBody>
             {ArrayAfterSortAndSliceAndSearch.map((row, i) => (
-              <TableRow
-                key={row.id}
-                className={i % 2 !== 0 ? classes.rowStyle : ""}
-              >
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.code}
                 </TableCell>
@@ -201,7 +213,10 @@ export default function ProductList() {
                   >
                     <DeleteIcon />
                   </Button>
-                  <Button variant="outlined">
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleOpenProductForm("Edit Product")}
+                  >
                     <EditIcon />
                   </Button>
                   <Button variant="outlined">

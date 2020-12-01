@@ -87,7 +87,7 @@ export default function BasicTable() {
     setOpenDialog(true);
   };
   return (
-    <Container>
+    <Container className={classes.container}>
       <AddCategoryForm
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
@@ -148,7 +148,7 @@ export default function BasicTable() {
             {ArrayAfterSortAndSliceAndSearch.map((row, i) => (
               <TableRow
                 key={row.id}
-                className={i % 2 !== 0 ? classes.rowStyle : ""}
+               
               >
                 <TableCell component="th" scope="row">
                   {row.category_name}
