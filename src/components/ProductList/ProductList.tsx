@@ -27,6 +27,8 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import useTable from "../CustomHook/useTable";
 import ProductForm from "../ProductForm/ProductForm";
 import { useStyles } from "./ProductListStyle";
+import AddIcon from "@material-ui/icons/Add";
+
 type TypeDate = Date | null;
 
 export default function ProductList() {
@@ -102,6 +104,7 @@ export default function ProductList() {
             color="primary"
             variant="contained"
             onClick={() => handleOpenProductForm("Add Product")}
+            startIcon={<AddIcon />}
           >
             Add Product
           </Button>
@@ -120,7 +123,7 @@ export default function ProductList() {
         </Toolbar>
         <Table className={classes.table} aria-label="simple table">
           <TableHead className={classes.tableHeader}>
-            <TableRow>
+            <TableRow className={classes.tableRow}>
               <TableCell key="code">
                 <TableSortLabel
                   active={orderBy === "code"}
@@ -193,8 +196,8 @@ export default function ProductList() {
 
           <TableBody>
             {ArrayAfterSortAndSliceAndSearch.map((row, i) => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
+              <TableRow key={row.id} >
+                <TableCell component="th" scope="row" >
                   {row.code}
                 </TableCell>
                 <TableCell align="left">{row.name}</TableCell>

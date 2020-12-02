@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
   },
   tableHeader: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor:"#fff",
     color: "#fff",
   },
   toolBar: {
@@ -31,8 +31,14 @@ export const useStyles = makeStyles((theme) => ({
     width: "140px",
     fontSize: "10px",
     margin: "0 10px",
-  },container:{
-    maxWidth:"70rem",
-    marginTop:"7rem"
-}
+  },
+  container: {
+    maxWidth: "70rem",
+    marginTop: "2rem",
+  },
+  tableRow: {
+    "& > *": {
+      color: "#000",
+    },
+  },
 }));

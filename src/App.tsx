@@ -8,7 +8,7 @@ import AuthController from "./components/Routers/AuthController";
 const theme = createMuiTheme({
   palette: {
    primary:{
-     main:"#ffa726"
+     main:"#3f51b5"
    },
    secondary:{
      main:"#3949ab"
@@ -23,7 +23,6 @@ function App() {
         <Router>
         <AuthController >
           <Routes />
-
         </AuthController>
         </Router>
       </ThemeProvider>
