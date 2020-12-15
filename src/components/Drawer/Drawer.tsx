@@ -30,7 +30,7 @@ import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./DrawerStyle";
 import { useTheme } from "@material-ui/core/styles";
-
+import RightPOS from '../RightPOS/RightPOS'
 interface Props {
   onLogout: () => void;
 }
@@ -64,7 +64,7 @@ export default function ResponsiveDrawer(props: Props) {
 
       <Divider />
       <List className={classes.lists}>
-        <ListItem button key="POS">
+        <ListItem button key="POS" onClick={() => history.push("/dashboard/RightPOS")}>
           <ListItemIcon>
             <CreditCardIcon />
           </ListItemIcon>
@@ -219,6 +219,7 @@ export default function ResponsiveDrawer(props: Props) {
           </Route>
           <Route path="/dashboard/categories" component={CatagoryList}></Route>
           <Route path="/dashboard/products" component={ProductList}></Route>
+          <Route path="/dashboard/RightPOS" component={RightPOS}></Route>
         </Switch>
       </main>
     </div>
